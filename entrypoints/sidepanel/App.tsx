@@ -1,19 +1,23 @@
 import { useEffect, useMemo, useState } from 'react';
 import type { ApplicantData } from '@/src/types/applicant-data';
 import type { StoragePort } from '@/src/core/applicant-data/storage-port';
-import { LocalStorageAdapter } from '@/src/storage/local-storage-adapter';
+import { SyncedStorageAdapter } from '@/src/storage/synced-storage-adapter';
 import { validateApplicant } from './validation';
 import { Upload } from './components/Upload';
 import { Preview } from './components/Preview';
 import { ui } from './components/fields';
 
-// Depend on the port, not the concrete adapter — Stage 3 swaps this one line.
-const storage: StoragePort = new LocalStorageAdapter();
-
 export function App() {
   const [data, setData] = useState<ApplicantData | null>(null);
   const [loading, setLoading] = useState(true);
   const [savedAt, setSavedAt] = useState<string | null>(null);
+  const [syncWarning, setSyncWarning] = useState<string | null>(null);
+
+  // Depend on the port, not the concrete adapter. onWarning surfaces quota fallback.
+  const storage: StoragePort = useMemo(
+    () => new SyncedStorageAdapter({ onWarning: setSyncWarning }),
+    [],
+  );
 
   useEffect(() => {
     storage
@@ -21,7 +25,7 @@ export function App() {
       .then(setData)
       .catch((err: unknown) => console.error('load failed', err))
       .finally(() => setLoading(false));
-  }, []);
+  }, [storage]);
 
   const { valid, errors } = useMemo(
     () => (data ? validateApplicant(data) : { valid: false, errors: {} }),
@@ -30,6 +34,7 @@ export function App() {
 
   async function save() {
     if (!data || !valid) return;
+    setSyncWarning(null);
     await storage.save(data);
     setSavedAt(new Date().toLocaleTimeString());
   }
@@ -64,6 +69,9 @@ export function App() {
               <span style={{ color: '#0a0', fontSize: '0.75rem' }}>Saved at {savedAt}</span>
             )}
           </div>
+          {syncWarning && (
+            <div style={{ ...ui.error, marginTop: '0.4rem', color: '#b45309' }}>{syncWarning}</div>
+          )}
         </>
       )}
     </main>
