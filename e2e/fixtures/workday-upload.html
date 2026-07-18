@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Workday résumé upload (fixture)</title>
+  </head>
+  <body>
+    <div data-automation-id="attachments-FileUpload">
+      <div data-automation-id="file-upload-drop-zone">
+        <button data-automation-id="select-files" type="button">Select files</button>
+        <input data-automation-id="file-upload-input-ref" type="file" />
+      </div>
+    </div>
+    <button data-automation-id="pageFooterNextButton" type="button">Save and Continue</button>
+    <script>
+      const input = document.querySelector('[data-automation-id="file-upload-input-ref"]');
+      input.dataset.changed = 'false';
+      input.addEventListener('change', () => (input.dataset.changed = 'true'));
+      window.__submitted = false;
+      document
+        .querySelector('[data-automation-id="pageFooterNextButton"]')
+        .addEventListener('click', () => (window.__submitted = true));
+    </script>
+  </body>
+</html>

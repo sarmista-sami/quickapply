@@ -1,7 +1,10 @@
 import { useRef, useState, type ChangeEvent } from 'react';
 import { parseResumeFile } from '../pipeline';
 import type { ApplicantData } from '@/src/types/applicant-data';
+import { ResumeFileStore } from '@/src/storage/resume-file-store';
 import { ui } from './fields';
+
+const resumeStore = new ResumeFileStore();
 
 interface UploadProps {
   onParsed: (data: ApplicantData) => void;
@@ -20,7 +23,10 @@ export function Upload({ onParsed, label = 'Upload résumé (.docx)' }: UploadPr
     setError(null);
     setBusy(true);
     try {
-      onParsed(await parseResumeFile(file));
+      const data = await parseResumeFile(file);
+      // Retain the original file locally so it can be attached to applications later.
+      await resumeStore.save(file).catch((err) => console.error('resume store failed', err));
+      onParsed(data);
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Failed to parse résumé.');
     } finally {

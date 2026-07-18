@@ -1,5 +1,12 @@
 import { WorkdayAdapter } from '@/src/site-adapters/workday';
-import type { PanelToContent, PlanResponse, FillResponse } from '@/src/messaging/protocol';
+import { attachResume } from '@/src/site-adapters/workday/resume-upload';
+import { storedToFile } from '@/src/storage/resume-file-store';
+import type {
+  PanelToContent,
+  PlanResponse,
+  FillResponse,
+  UploadResumeResponse,
+} from '@/src/messaging/protocol';
 
 // Content script for Workday application pages. Handles preview/fill requests from the
 // side panel by delegating to the Workday adapter. Never submits the form.
@@ -17,6 +24,16 @@ export default defineContentScript({
       if (message.type === 'plan-request') {
         sendResponse({ type: 'plan-response', fields: adapter.plan(message.data) } satisfies PlanResponse);
         return false; // responded synchronously
+      }
+
+      if (message.type === 'upload-resume-request') {
+        try {
+          const ok = attachResume(storedToFile(message.file));
+          sendResponse({ type: 'upload-resume-response', ok } satisfies UploadResumeResponse);
+        } catch (err) {
+          sendResponse({ type: 'upload-resume-response', ok: false, error: String(err) } satisfies UploadResumeResponse);
+        }
+        return false;
       }
 
       if (message.type === 'fill-request') {

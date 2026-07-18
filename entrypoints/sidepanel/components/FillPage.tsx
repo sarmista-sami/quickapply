@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import type { ApplicantData } from '@/src/types/applicant-data';
 import type { FieldFill, FillResult } from '@/src/core/site-adapter/types';
-import { requestPlan, requestFill } from '../page-fill';
+import { requestPlan, requestFill, requestResumeUpload } from '../page-fill';
 import { ui } from './fields';
 
 interface FillPageProps {
@@ -17,6 +17,18 @@ type Status =
 export function FillPage({ data }: FillPageProps) {
   const [status, setStatus] = useState<Status>({ kind: 'idle' });
   const [busy, setBusy] = useState(false);
+  const [attachMsg, setAttachMsg] = useState<string | null>(null);
+
+  async function attachResume() {
+    setBusy(true);
+    setAttachMsg(null);
+    try {
+      const res = await requestResumeUpload();
+      setAttachMsg(res.ok ? 'Résumé attached to this page.' : res.error ?? 'Could not attach résumé.');
+    } finally {
+      setBusy(false);
+    }
+  }
 
   async function preview() {
     setBusy(true);
@@ -41,13 +53,23 @@ export function FillPage({ data }: FillPageProps) {
     <section style={{ ...ui.section, borderTop: '1px solid #e5e5e5', paddingTop: '0.75rem' }}>
       <h2 style={ui.h2}>Fill this Workday page</h2>
 
-      <button
-        style={{ ...ui.ghostButton, ...(busy ? ui.buttonDisabled : {}) }}
-        disabled={busy}
-        onClick={preview}
-      >
-        {busy ? 'Working…' : 'Preview fill'}
-      </button>
+      <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap' }}>
+        <button
+          style={{ ...ui.ghostButton, ...(busy ? ui.buttonDisabled : {}) }}
+          disabled={busy}
+          onClick={preview}
+        >
+          {busy ? 'Working…' : 'Preview fill'}
+        </button>
+        <button
+          style={{ ...ui.ghostButton, ...(busy ? ui.buttonDisabled : {}) }}
+          disabled={busy}
+          onClick={attachResume}
+        >
+          Attach résumé
+        </button>
+      </div>
+      {attachMsg && <div style={{ ...ui.label, marginTop: '0.3rem' }}>{attachMsg}</div>}
 
       {status.kind === 'not-fillable' && (
         <div style={{ ...ui.error, color: '#555', marginTop: '0.4rem' }}>

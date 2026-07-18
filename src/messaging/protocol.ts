@@ -29,6 +29,19 @@ export interface FillResponse {
   result: FillResult;
 }
 
-export type PanelToContent = PlanRequest | FillRequest;
-export type ContentToPanel = PlanResponse | FillResponse;
+/** Side panel → content: attach a stored résumé file to the page's file input. */
+export interface UploadResumeRequest {
+  type: 'upload-resume-request';
+  file: { name: string; type: string; dataBase64: string };
+}
+
+/** Content → side panel: outcome of the résumé attach. */
+export interface UploadResumeResponse {
+  type: 'upload-resume-response';
+  ok: boolean;
+  error?: string;
+}
+
+export type PanelToContent = PlanRequest | FillRequest | UploadResumeRequest;
+export type ContentToPanel = PlanResponse | FillResponse | UploadResumeResponse;
 export type Message = PanelToContent | ContentToPanel;
