@@ -8,8 +8,14 @@ stats.html
 # Playwright interactive capture (local session profile + sentinels)
 e2e/.pw-profile
 e2e/.pw-profile-signin
+e2e/.pw-profile-stages
 e2e/.tmp
 e2e/capture/GO.txt
 e2e/capture/DONE.txt
+e2e/capture/STAGEDONE.txt
+e2e/capture/STOP.txt
 test-results
 playwright-report
+
+e2e/.pw-profile-drive
+e2e/capture/NEEDHELP.txt

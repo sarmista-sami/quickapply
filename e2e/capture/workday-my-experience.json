@@ -1,0 +1,1540 @@
+{
+  "capturedAt": "2026-07-18T16:58:41.806Z",
+  "stage": 2,
+  "dumps": [
+    {
+      "href": "https://pwc.wd3.myworkdayjobs.com/en-US/Global_Experienced_Careers/job/Amsterdam/XMLNAME--Senior--Associate-Operational-Tax-Reporting_736247WD/apply/applyManually",
+      "count": 158,
+      "rows": [
+        {
+          "automationId": "accessibilitySkipToMainContent",
+          "tag": "a",
+          "type": "",
+          "label": "",
+          "visible": true
+        },
+        {
+          "automationId": "header",
+          "tag": "div",
+          "type": "",
+          "label": "",
+          "visible": true
+        },
+        {
+          "automationId": "logoLink",
+          "tag": "a",
+          "type": "",
+          "label": "",
+          "visible": true
+        },
+        {
+          "automationId": "logo",
+          "tag": "img",
+          "type": "",
+          "label": "",
+          "visible": true
+        },
+        {
+          "automationId": "headerTitle",
+          "tag": "div",
+          "type": "",
+          "label": "",
+          "visible": true
+        },
+        {
+          "automationId": "navigationContainer",
+          "tag": "div",
+          "type": "",
+          "label": "",
+          "visible": true
+        },
+        {
+          "automationId": "utilityButtonBar",
+          "tag": "div",
+          "type": "",
+          "label": "",
+          "visible": true
+        },
+        {
+          "automationId": "utilityButtonBarLanguageMenu",
+          "tag": "div",
+          "type": "",
+          "label": "",
+          "visible": true
+        },
+        {
+          "automationId": "utilityMenuButton",
+          "tag": "button",
+          "type": "",
+          "label": "",
+          "visible": true
+        },
+        {
+          "automationId": "utility-button-bar-divider",
+          "tag": "div",
+          "type": "",
+          "label": "",
+          "visible": true
+        },
+        {
+          "automationId": "utilityButtonBarSettingsMenu",
+          "tag": "div",
+          "type": "",
+          "label": "",
+          "visible": true
+        },
+        {
+          "automationId": "utilityMenuButton",
+          "tag": "button",
+          "type": "",
+          "label": "",
+          "visible": true
+        },
+        {
+          "automationId": "utility-button-bar-divider",
+          "tag": "div",
+          "type": "",
+          "label": "",
+          "visible": true
+        },
+        {
+          "automationId": "utilityButtonAccountTasksMenu",
+          "tag": "div",
+          "type": "",
+          "label": "",
+          "visible": true
+        },
+        {
+          "automationId": "utilityMenuButton",
+          "tag": "button",
+          "type": "",
+          "label": "",
+          "visible": true
+        },
+        {
+          "automationId": "navigationItem-Careers Homepage",
+          "tag": "button",
+          "type": "",
+          "label": "",
+          "visible": true
+        },
+        {
+          "automationId": "navigationItem-Candidate Home",
+          "tag": "button",
+          "type": "",
+          "label": "",
+          "visible": true
+        },
+        {
+          "automationId": "hammyMenuIcon",
+          "tag": "button",
+          "type": "",
+          "label": "main menu",
+          "visible": true
+        },
+        {
+          "automationId": "applyFlowPage",
+          "tag": "div",
+          "type": "",
+          "label": "",
+          "visible": true
+        },
+        {
+          "automationId": "backToJobPosting",
+          "tag": "button",
+          "type": "button",
+          "label": "",
+          "visible": true
+        },
+        {
+          "automationId": "jobTitleHeading",
+          "tag": "h2",
+          "type": "",
+          "label": "",
+          "visible": true
+        },
+        {
+          "automationId": "progressBar",
+          "tag": "ol",
+          "type": "",
+          "label": "",
+          "visible": true
+        },
+        {
+          "automationId": "progressBarCompletedStep",
+          "tag": "li",
+          "type": "",
+          "label": "",
+          "visible": true
+        },
+        {
+          "automationId": "progressBarActiveStep",
+          "tag": "li",
+          "type": "",
+          "label": "",
+          "visible": true
+        },
+        {
+          "automationId": "progressBarInactiveStep",
+          "tag": "li",
+          "type": "",
+          "label": "",
+          "visible": true
+        },
+        {
+          "automationId": "progressBarInactiveStep",
+          "tag": "li",
+          "type": "",
+          "label": "",
+          "visible": true
+        },
+        {
+          "automationId": "progressBarInactiveStep",
+          "tag": "li",
+          "type": "",
+          "label": "",
+          "visible": true
+        },
+        {
+          "automationId": "progressBarInactiveStep",
+          "tag": "li",
+          "type": "",
+          "label": "",
+          "visible": true
+        },
+        {
+          "automationId": "applyFlowMyExpPage",
+          "tag": "div",
+          "type": "",
+          "label": "",
+          "visible": true
+        },
+        {
+          "automationId": "formField-jobTitle",
+          "tag": "div",
+          "type": "",
+          "label": "",
+          "visible": true
+        },
+        {
+          "automationId": "formField-companyName",
+          "tag": "div",
+          "type": "",
+          "label": "",
+          "visible": true
+        },
+        {
+          "automationId": "formField-location",
+          "tag": "div",
+          "type": "",
+          "label": "",
+          "visible": true
+        },
+        {
+          "automationId": "formField-currentlyWorkHere",
+          "tag": "div",
+          "type": "",
+          "label": "",
+          "visible": true
+        },
+        {
+          "automationId": "formField-startDate",
+          "tag": "div",
+          "type": "",
+          "label": "",
+          "visible": true
+        },
+        {
+          "automationId": "dateInputWrapper",
+          "tag": "div",
+          "type": "",
+          "label": "",
+          "visible": true
+        },
+        {
+          "automationId": "dateSectionMonth-display",
+          "tag": "div",
+          "type": "",
+          "label": "",
+          "visible": true
+        },
+        {
+          "automationId": "dateSectionMonth-input",
+          "tag": "input",
+          "type": "",
+          "label": "Month",
+          "visible": true
+        },
+        {
+          "automationId": "dateSectionYear-display",
+          "tag": "div",
+          "type": "",
+          "label": "",
+          "visible": true
+        },
+        {
+          "automationId": "dateSectionYear-input",
+          "tag": "input",
+          "type": "",
+          "label": "Year",
+          "visible": true
+        },
+        {
+          "automationId": "dateIcon",
+          "tag": "div",
+          "type": "",
+          "label": "Calendar",
+          "visible": true
+        },
+        {
+          "automationId": "formField-endDate",
+          "tag": "div",
+          "type": "",
+          "label": "",
+          "visible": true
+        },
+        {
+          "automationId": "dateInputWrapper",
+          "tag": "div",
+          "type": "",
+          "label": "",
+          "visible": true
+        },
+        {
+          "automationId": "dateSectionMonth-display",
+          "tag": "div",
+          "type": "",
+          "label": "",
+          "visible": true
+        },
+        {
+          "automationId": "dateSectionMonth-input",
+          "tag": "input",
+          "type": "",
+          "label": "Month",
+          "visible": true
+        },
+        {
+          "automationId": "dateSectionYear-display",
+          "tag": "div",
+          "type": "",
+          "label": "",
+          "visible": true
+        },
+        {
+          "automationId": "dateSectionYear-input",
+          "tag": "input",
+          "type": "",
+          "label": "Year",
+          "visible": true
+        },
+        {
+          "automationId": "dateIcon",
+          "tag": "div",
+          "type": "",
+          "label": "Calendar",
+          "visible": true
+        },
+        {
+          "automationId": "formField-roleDescription",
+          "tag": "div",
+          "type": "",
+          "label": "",
+          "visible": true
+        },
+        {
+          "automationId": "formField-jobTitle",
+          "tag": "div",
+          "type": "",
+          "label": "",
+          "visible": true
+        },
+        {
+          "automationId": "formField-companyName",
+          "tag": "div",
+          "type": "",
+          "label": "",
+          "visible": true
+        },
+        {
+          "automationId": "formField-location",
+          "tag": "div",
+          "type": "",
+          "label": "",
+          "visible": true
+        },
+        {
+          "automationId": "formField-currentlyWorkHere",
+          "tag": "div",
+          "type": "",
+          "label": "",
+          "visible": true
+        },
+        {
+          "automationId": "formField-startDate",
+          "tag": "div",
+          "type": "",
+          "label": "",
+          "visible": true
+        },
+        {
+          "automationId": "dateInputWrapper",
+          "tag": "div",
+          "type": "",
+          "label": "",
+          "visible": true
+        },
+        {
+          "automationId": "dateSectionMonth-display",
+          "tag": "div",
+          "type": "",
+          "label": "",
+          "visible": true
+        },
+        {
+          "automationId": "dateSectionMonth-input",
+          "tag": "input",
+          "type": "",
+          "label": "Month",
+          "visible": true
+        },
+        {
+          "automationId": "dateSectionYear-display",
+          "tag": "div",
+          "type": "",
+          "label": "",
+          "visible": true
+        },
+        {
+          "automationId": "dateSectionYear-input",
+          "tag": "input",
+          "type": "",
+          "label": "Year",
+          "visible": true
+        },
+        {
+          "automationId": "dateIcon",
+          "tag": "div",
+          "type": "",
+          "label": "Calendar",
+          "visible": true
+        },
+        {
+          "automationId": "formField-endDate",
+          "tag": "div",
+          "type": "",
+          "label": "",
+          "visible": true
+        },
+        {
+          "automationId": "dateInputWrapper",
+          "tag": "div",
+          "type": "",
+          "label": "",
+          "visible": true
+        },
+        {
+          "automationId": "dateSectionMonth-display",
+          "tag": "div",
+          "type": "",
+          "label": "",
+          "visible": true
+        },
+        {
+          "automationId": "dateSectionMonth-input",
+          "tag": "input",
+          "type": "",
+          "label": "Month",
+          "visible": true
+        },
+        {
+          "automationId": "dateSectionYear-display",
+          "tag": "div",
+          "type": "",
+          "label": "",
+          "visible": true
+        },
+        {
+          "automationId": "dateSectionYear-input",
+          "tag": "input",
+          "type": "",
+          "label": "Year",
+          "visible": true
+        },
+        {
+          "automationId": "dateIcon",
+          "tag": "div",
+          "type": "",
+          "label": "Calendar",
+          "visible": true
+        },
+        {
+          "automationId": "formField-roleDescription",
+          "tag": "div",
+          "type": "",
+          "label": "",
+          "visible": true
+        },
+        {
+          "automationId": "add-button",
+          "tag": "button",
+          "type": "",
+          "label": "",
+          "visible": true
+        },
+        {
+          "automationId": "smartDivider",
+          "tag": "div",
+          "type": "",
+          "label": "",
+          "visible": true
+        },
+        {
+          "automationId": "instructionalText",
+          "tag": "div",
+          "type": "",
+          "label": "",
+          "visible": true
+        },
+        {
+          "automationId": "formField-school",
+          "tag": "div",
+          "type": "",
+          "label": "",
+          "visible": true
+        },
+        {
+          "automationId": "multiSelectContainer",
+          "tag": "div",
+          "type": "",
+          "label": "",
+          "visible": true
+        },
+        {
+          "automationId": "multiselectInputContainer",
+          "tag": "div",
+          "type": "",
+          "label": "",
+          "visible": true
+        },
+        {
+          "automationId": "promptSelectionLabel",
+          "tag": "div",
+          "type": "",
+          "label": "",
+          "visible": false
+        },
+        {
+          "automationId": "promptAriaInstruction",
+          "tag": "div",
+          "type": "",
+          "label": "",
+          "visible": true
+        },
+        {
+          "automationId": "selectedItemList",
+          "tag": "ul",
+          "type": "",
+          "label": "items selected",
+          "visible": true
+        },
+        {
+          "automationId": "menuItem",
+          "tag": "li",
+          "type": "",
+          "label": "",
+          "visible": true
+        },
+        {
+          "automationId": "selectedItem",
+          "tag": "div",
+          "type": "",
+          "label": "IIT, press delete to clear value.",
+          "visible": true
+        },
+        {
+          "automationId": "DELETE_charm",
+          "tag": "div",
+          "type": "",
+          "label": "",
+          "visible": true
+        },
+        {
+          "automationId": "promptOption",
+          "tag": "p",
+          "type": "",
+          "label": "IIT",
+          "visible": true
+        },
+        {
+          "automationId": "promptIcon",
+          "tag": "span",
+          "type": "",
+          "label": "",
+          "visible": true
+        },
+        {
+          "automationId": "formField-degree",
+          "tag": "div",
+          "type": "",
+          "label": "",
+          "visible": true
+        },
+        {
+          "automationId": "formField-fieldOfStudy",
+          "tag": "div",
+          "type": "",
+          "label": "",
+          "visible": true
+        },
+        {
+          "automationId": "multiSelectContainer",
+          "tag": "div",
+          "type": "",
+          "label": "",
+          "visible": true
+        },
+        {
+          "automationId": "multiselectInputContainer",
+          "tag": "div",
+          "type": "",
+          "label": "",
+          "visible": true
+        },
+        {
+          "automationId": "promptSelectionLabel",
+          "tag": "div",
+          "type": "",
+          "label": "",
+          "visible": false
+        },
+        {
+          "automationId": "promptAriaInstruction",
+          "tag": "div",
+          "type": "",
+          "label": "",
+          "visible": true
+        },
+        {
+          "automationId": "selectedItemList",
+          "tag": "ul",
+          "type": "",
+          "label": "items selected",
+          "visible": true
+        },
+        {
+          "automationId": "menuItem",
+          "tag": "li",
+          "type": "",
+          "label": "",
+          "visible": true
+        },
+        {
+          "automationId": "selectedItem",
+          "tag": "div",
+          "type": "",
+          "label": "Environmental Law, press delete to clear value.",
+          "visible": true
+        },
+        {
+          "automationId": "DELETE_charm",
+          "tag": "div",
+          "type": "",
+          "label": "",
+          "visible": true
+        },
+        {
+          "automationId": "promptOption",
+          "tag": "p",
+          "type": "",
+          "label": "Environmental Law",
+          "visible": true
+        },
+        {
+          "automationId": "promptIcon",
+          "tag": "span",
+          "type": "",
+          "label": "",
+          "visible": true
+        },
+        {
+          "automationId": "formField-gradeAverage",
+          "tag": "div",
+          "type": "",
+          "label": "",
+          "visible": true
+        },
+        {
+          "automationId": "formField-firstYearAttended",
+          "tag": "div",
+          "type": "",
+          "label": "",
+          "visible": true
+        },
+        {
+          "automationId": "dateInputWrapper",
+          "tag": "div",
+          "type": "",
+          "label": "",
+          "visible": true
+        },
+        {
+          "automationId": "dateSectionYear-display",
+          "tag": "div",
+          "type": "",
+          "label": "",
+          "visible": true
+        },
+        {
+          "automationId": "dateSectionYear-input",
+          "tag": "input",
+          "type": "",
+          "label": "Year",
+          "visible": true
+        },
+        {
+          "automationId": "formField-lastYearAttended",
+          "tag": "div",
+          "type": "",
+          "label": "",
+          "visible": true
+        },
+        {
+          "automationId": "dateInputWrapper",
+          "tag": "div",
+          "type": "",
+          "label": "",
+          "visible": true
+        },
+        {
+          "automationId": "dateSectionYear-display",
+          "tag": "div",
+          "type": "",
+          "label": "",
+          "visible": true
+        },
+        {
+          "automationId": "dateSectionYear-input",
+          "tag": "input",
+          "type": "",
+          "label": "Year",
+          "visible": true
+        },
+        {
+          "automationId": "add-button",
+          "tag": "button",
+          "type": "",
+          "label": "",
+          "visible": true
+        },
+        {
+          "automationId": "smartDivider",
+          "tag": "div",
+          "type": "",
+          "label": "",
+          "visible": true
+        },
+        {
+          "automationId": "formField-language",
+          "tag": "div",
+          "type": "",
+          "label": "",
+          "visible": true
+        },
+        {
+          "automationId": "formField-native",
+          "tag": "div",
+          "type": "",
+          "label": "",
+          "visible": true
+        },
+        {
+          "automationId": "formField-e57e6863118d0114f5a12870742bfc37",
+          "tag": "div",
+          "type": "",
+          "label": "",
+          "visible": true
+        },
+        {
+          "automationId": "formField-language",
+          "tag": "div",
+          "type": "",
+          "label": "",
+          "visible": true
+        },
+        {
+          "automationId": "formField-native",
+          "tag": "div",
+          "type": "",
+          "label": "",
+          "visible": true
+        },
+        {
+          "automationId": "formField-e57e6863118d0114f5a12870742bfc37",
+          "tag": "div",
+          "type": "",
+          "label": "",
+          "visible": true
+        },
+        {
+          "automationId": "add-button",
+          "tag": "button",
+          "type": "",
+          "label": "",
+          "visible": true
+        },
+        {
+          "automationId": "smartDivider",
+          "tag": "div",
+          "type": "",
+          "label": "",
+          "visible": true
+        },
+        {
+          "automationId": "instructionalText",
+          "tag": "div",
+          "type": "",
+          "label": "",
+          "visible": true
+        },
+        {
+          "automationId": "instructional-spacer",
+          "tag": "div",
+          "type": "",
+          "label": "",
+          "visible": false
+        },
+        {
+          "automationId": "formField-skills",
+          "tag": "div",
+          "type": "",
+          "label": "",
+          "visible": true
+        },
+        {
+          "automationId": "multiSelectContainer",
+          "tag": "div",
+          "type": "",
+          "label": "",
+          "visible": true
+        },
+        {
+          "automationId": "multiselectInputContainer",
+          "tag": "div",
+          "type": "",
+          "label": "",
+          "visible": true
+        },
+        {
+          "automationId": "promptSelectionLabel",
+          "tag": "div",
+          "type": "",
+          "label": "",
+          "visible": false
+        },
+        {
+          "automationId": "promptAriaInstruction",
+          "tag": "div",
+          "type": "",
+          "label": "",
+          "visible": true
+        },
+        {
+          "automationId": "selectedItemList",
+          "tag": "ul",
+          "type": "",
+          "label": "items selected",
+          "visible": true
+        },
+        {
+          "automationId": "menuItem",
+          "tag": "li",
+          "type": "",
+          "label": "",
+          "visible": true
+        },
+        {
+          "automationId": "selectedItem",
+          "tag": "div",
+          "type": "",
+          "label": "Legal Research, press delete to clear value.",
+          "visible": true
+        },
+        {
+          "automationId": "DELETE_charm",
+          "tag": "div",
+          "type": "",
+          "label": "",
+          "visible": true
+        },
+        {
+          "automationId": "promptOption",
+          "tag": "p",
+          "type": "",
+          "label": "Legal Research",
+          "visible": true
+        },
+        {
+          "automationId": "menuItem",
+          "tag": "li",
+          "type": "",
+          "label": "",
+          "visible": true
+        },
+        {
+          "automationId": "selectedItem",
+          "tag": "div",
+          "type": "",
+          "label": "Public Law, press delete to clear value.",
+          "visible": true
+        },
+        {
+          "automationId": "DELETE_charm",
+          "tag": "div",
+          "type": "",
+          "label": "",
+          "visible": true
+        },
+        {
+          "automationId": "promptOption",
+          "tag": "p",
+          "type": "",
+          "label": "Public Law",
+          "visible": true
+        },
+        {
+          "automationId": "menuItem",
+          "tag": "li",
+          "type": "",
+          "label": "",
+          "visible": true
+        },
+        {
+          "automationId": "selectedItem",
+          "tag": "div",
+          "type": "",
+          "label": "VAT Law, press delete to clear value.",
+          "visible": true
+        },
+        {
+          "automationId": "DELETE_charm",
+          "tag": "div",
+          "type": "",
+          "label": "",
+          "visible": true
+        },
+        {
+          "automationId": "promptOption",
+          "tag": "p",
+          "type": "",
+          "label": "VAT Law",
+          "visible": true
+        },
+        {
+          "automationId": "menuItem",
+          "tag": "li",
+          "type": "",
+          "label": "",
+          "visible": true
+        },
+        {
+          "automationId": "selectedItem",
+          "tag": "div",
+          "type": "",
+          "label": "LawNet, press delete to clear value.",
+          "visible": true
+        },
+        {
+          "automationId": "DELETE_charm",
+          "tag": "div",
+          "type": "",
+          "label": "",
+          "visible": true
+        },
+        {
+          "automationId": "promptOption",
+          "tag": "p",
+          "type": "",
+          "label": "LawNet",
+          "visible": true
+        },
+        {
+          "automationId": "menuItem",
+          "tag": "li",
+          "type": "",
+          "label": "",
+          "visible": true
+        },
+        {
+          "automationId": "selectedItem",
+          "tag": "div",
+          "type": "",
+          "label": "Law, press delete to clear value.",
+          "visible": true
+        },
+        {
+          "automationId": "DELETE_charm",
+          "tag": "div",
+          "type": "",
+          "label": "",
+          "visible": true
+        },
+        {
+          "automationId": "promptOption",
+          "tag": "p",
+          "type": "",
+          "label": "Law",
+          "visible": true
+        },
+        {
+          "automationId": "promptIcon",
+          "tag": "span",
+          "type": "",
+          "label": "",
+          "visible": true
+        },
+        {
+          "automationId": "smartDivider",
+          "tag": "div",
+          "type": "",
+          "label": "",
+          "visible": true
+        },
+        {
+          "automationId": "formField-",
+          "tag": "div",
+          "type": "",
+          "label": "",
+          "visible": true
+        },
+        {
+          "automationId": "attachments-FileUpload",
+          "tag": "div",
+          "type": "",
+          "label": "",
+          "visible": true
+        },
+        {
+          "automationId": "file-upload-drop-zone",
+          "tag": "div",
+          "type": "",
+          "label": "",
+          "visible": true
+        },
+        {
+          "automationId": "select-files",
+          "tag": "button",
+          "type": "button",
+          "label": "",
+          "visible": true
+        },
+        {
+          "automationId": "file-upload-input-ref",
+          "tag": "input",
+          "type": "file",
+          "label": "",
+          "visible": false
+        },
+        {
+          "automationId": "smartDivider",
+          "tag": "div",
+          "type": "",
+          "label": "",
+          "visible": true
+        },
+        {
+          "automationId": "formField-url",
+          "tag": "div",
+          "type": "",
+          "label": "",
+          "visible": true
+        },
+        {
+          "automationId": "add-button",
+          "tag": "button",
+          "type": "",
+          "label": "",
+          "visible": true
+        },
+        {
+          "automationId": "smartDivider",
+          "tag": "div",
+          "type": "",
+          "label": "",
+          "visible": true
+        },
+        {
+          "automationId": "formField-linkedInAccount",
+          "tag": "div",
+          "type": "",
+          "label": "",
+          "visible": true
+        },
+        {
+          "automationId": "pageFooter",
+          "tag": "div",
+          "type": "",
+          "label": "",
+          "visible": true
+        },
+        {
+          "automationId": "pageFooterBackButton",
+          "tag": "button",
+          "type": "",
+          "label": "",
+          "visible": true
+        },
+        {
+          "automationId": "pageFooterNextButton",
+          "tag": "button",
+          "type": "",
+          "label": "",
+          "visible": true
+        },
+        {
+          "automationId": "footerContainer",
+          "tag": "div",
+          "type": "",
+          "label": "",
+          "visible": true
+        },
+        {
+          "automationId": "privacyLink",
+          "tag": "a",
+          "type": "",
+          "label": "Privacy Statement",
+          "visible": true
+        },
+        {
+          "automationId": "logo",
+          "tag": "div",
+          "type": "",
+          "label": "",
+          "visible": true
+        }
+      ],
+      "controls": [
+        {
+          "tag": "button",
+          "type": "",
+          "ownAid": "utilityMenuButton",
+          "name": "",
+          "closestAid": "utilityMenuButton"
+        },
+        {
+          "tag": "button",
+          "type": "",
+          "ownAid": "utilityMenuButton",
+          "name": "",
+          "closestAid": "utilityMenuButton"
+        },
+        {
+          "tag": "button",
+          "type": "",
+          "ownAid": "utilityMenuButton",
+          "name": "",
+          "closestAid": "utilityMenuButton"
+        },
+        {
+          "tag": "button",
+          "type": "",
+          "ownAid": "navigationItem-Careers Homepage",
+          "name": "",
+          "closestAid": "navigationItem-Careers Homepage"
+        },
+        {
+          "tag": "button",
+          "type": "",
+          "ownAid": "navigationItem-Candidate Home",
+          "name": "",
+          "closestAid": "navigationItem-Candidate Home"
+        },
+        {
+          "tag": "button",
+          "type": "",
+          "ownAid": "hammyMenuIcon",
+          "name": "",
+          "closestAid": "hammyMenuIcon"
+        },
+        {
+          "tag": "button",
+          "type": "button",
+          "ownAid": "backToJobPosting",
+          "name": "",
+          "closestAid": "backToJobPosting"
+        },
+        {
+          "tag": "button",
+          "type": "",
+          "ownAid": "",
+          "name": "",
+          "closestAid": "applyFlowMyExpPage"
+        },
+        {
+          "tag": "input",
+          "type": "text",
+          "ownAid": "",
+          "name": "jobTitle",
+          "closestAid": "formField-jobTitle"
+        },
+        {
+          "tag": "input",
+          "type": "text",
+          "ownAid": "",
+          "name": "companyName",
+          "closestAid": "formField-companyName"
+        },
+        {
+          "tag": "input",
+          "type": "text",
+          "ownAid": "",
+          "name": "location",
+          "closestAid": "formField-location"
+        },
+        {
+          "tag": "input",
+          "type": "checkbox",
+          "ownAid": "",
+          "name": "currentlyWorkHere",
+          "closestAid": "formField-currentlyWorkHere"
+        },
+        {
+          "tag": "input",
+          "type": "",
+          "ownAid": "dateSectionMonth-input",
+          "name": "",
+          "closestAid": "dateSectionMonth-input"
+        },
+        {
+          "tag": "input",
+          "type": "",
+          "ownAid": "dateSectionYear-input",
+          "name": "",
+          "closestAid": "dateSectionYear-input"
+        },
+        {
+          "tag": "input",
+          "type": "",
+          "ownAid": "dateSectionMonth-input",
+          "name": "",
+          "closestAid": "dateSectionMonth-input"
+        },
+        {
+          "tag": "input",
+          "type": "",
+          "ownAid": "dateSectionYear-input",
+          "name": "",
+          "closestAid": "dateSectionYear-input"
+        },
+        {
+          "tag": "textarea",
+          "type": "",
+          "ownAid": "",
+          "name": "",
+          "closestAid": "formField-roleDescription"
+        },
+        {
+          "tag": "button",
+          "type": "",
+          "ownAid": "",
+          "name": "",
+          "closestAid": "applyFlowMyExpPage"
+        },
+        {
+          "tag": "input",
+          "type": "text",
+          "ownAid": "",
+          "name": "jobTitle",
+          "closestAid": "formField-jobTitle"
+        },
+        {
+          "tag": "input",
+          "type": "text",
+          "ownAid": "",
+          "name": "companyName",
+          "closestAid": "formField-companyName"
+        },
+        {
+          "tag": "input",
+          "type": "text",
+          "ownAid": "",
+          "name": "location",
+          "closestAid": "formField-location"
+        },
+        {
+          "tag": "input",
+          "type": "checkbox",
+          "ownAid": "",
+          "name": "currentlyWorkHere",
+          "closestAid": "formField-currentlyWorkHere"
+        },
+        {
+          "tag": "input",
+          "type": "",
+          "ownAid": "dateSectionMonth-input",
+          "name": "",
+          "closestAid": "dateSectionMonth-input"
+        },
+        {
+          "tag": "input",
+          "type": "",
+          "ownAid": "dateSectionYear-input",
+          "name": "",
+          "closestAid": "dateSectionYear-input"
+        },
+        {
+          "tag": "input",
+          "type": "",
+          "ownAid": "dateSectionMonth-input",
+          "name": "",
+          "closestAid": "dateSectionMonth-input"
+        },
+        {
+          "tag": "input",
+          "type": "",
+          "ownAid": "dateSectionYear-input",
+          "name": "",
+          "closestAid": "dateSectionYear-input"
+        },
+        {
+          "tag": "textarea",
+          "type": "",
+          "ownAid": "",
+          "name": "",
+          "closestAid": "formField-roleDescription"
+        },
+        {
+          "tag": "button",
+          "type": "",
+          "ownAid": "add-button",
+          "name": "",
+          "closestAid": "add-button"
+        },
+        {
+          "tag": "button",
+          "type": "",
+          "ownAid": "",
+          "name": "",
+          "closestAid": "applyFlowMyExpPage"
+        },
+        {
+          "tag": "input",
+          "type": "",
+          "ownAid": "",
+          "name": "",
+          "closestAid": "multiselectInputContainer"
+        },
+        {
+          "tag": "button",
+          "type": "button",
+          "ownAid": "",
+          "name": "degree",
+          "closestAid": "formField-degree"
+        },
+        {
+          "tag": "input",
+          "type": "text",
+          "ownAid": "",
+          "name": "",
+          "closestAid": "formField-degree"
+        },
+        {
+          "tag": "input",
+          "type": "",
+          "ownAid": "",
+          "name": "",
+          "closestAid": "multiselectInputContainer"
+        },
+        {
+          "tag": "button",
+          "type": "button",
+          "ownAid": "",
+          "name": "",
+          "closestAid": "applyFlowMyExpPage"
+        },
+        {
+          "tag": "input",
+          "type": "text",
+          "ownAid": "",
+          "name": "gradeAverage",
+          "closestAid": "formField-gradeAverage"
+        },
+        {
+          "tag": "input",
+          "type": "",
+          "ownAid": "dateSectionYear-input",
+          "name": "",
+          "closestAid": "dateSectionYear-input"
+        },
+        {
+          "tag": "input",
+          "type": "",
+          "ownAid": "dateSectionYear-input",
+          "name": "",
+          "closestAid": "dateSectionYear-input"
+        },
+        {
+          "tag": "button",
+          "type": "",
+          "ownAid": "add-button",
+          "name": "",
+          "closestAid": "add-button"
+        },
+        {
+          "tag": "button",
+          "type": "",
+          "ownAid": "",
+          "name": "",
+          "closestAid": "applyFlowMyExpPage"
+        },
+        {
+          "tag": "button",
+          "type": "button",
+          "ownAid": "",
+          "name": "language",
+          "closestAid": "formField-language"
+        },
+        {
+          "tag": "input",
+          "type": "text",
+          "ownAid": "",
+          "name": "",
+          "closestAid": "formField-language"
+        },
+        {
+          "tag": "input",
+          "type": "checkbox",
+          "ownAid": "",
+          "name": "native",
+          "closestAid": "formField-native"
+        },
+        {
+          "tag": "button",
+          "type": "button",
+          "ownAid": "",
+          "name": "e57e6863118d0114f5a12870742bfc37",
+          "closestAid": "formField-e57e6863118d0114f5a12870742bfc37"
+        },
+        {
+          "tag": "input",
+          "type": "text",
+          "ownAid": "",
+          "name": "",
+          "closestAid": "formField-e57e6863118d0114f5a12870742bfc37"
+        },
+        {
+          "tag": "button",
+          "type": "",
+          "ownAid": "",
+          "name": "",
+          "closestAid": "applyFlowMyExpPage"
+        },
+        {
+          "tag": "button",
+          "type": "button",
+          "ownAid": "",
+          "name": "language",
+          "closestAid": "formField-language"
+        },
+        {
+          "tag": "input",
+          "type": "text",
+          "ownAid": "",
+          "name": "",
+          "closestAid": "formField-language"
+        },
+        {
+          "tag": "input",
+          "type": "checkbox",
+          "ownAid": "",
+          "name": "native",
+          "closestAid": "formField-native"
+        },
+        {
+          "tag": "button",
+          "type": "button",
+          "ownAid": "",
+          "name": "e57e6863118d0114f5a12870742bfc37",
+          "closestAid": "formField-e57e6863118d0114f5a12870742bfc37"
+        },
+        {
+          "tag": "input",
+          "type": "text",
+          "ownAid": "",
+          "name": "",
+          "closestAid": "formField-e57e6863118d0114f5a12870742bfc37"
+        },
+        {
+          "tag": "button",
+          "type": "",
+          "ownAid": "add-button",
+          "name": "",
+          "closestAid": "add-button"
+        },
+        {
+          "tag": "input",
+          "type": "",
+          "ownAid": "",
+          "name": "",
+          "closestAid": "multiselectInputContainer"
+        },
+        {
+          "tag": "button",
+          "type": "button",
+          "ownAid": "select-files",
+          "name": "",
+          "closestAid": "select-files"
+        },
+        {
+          "tag": "input",
+          "type": "file",
+          "ownAid": "file-upload-input-ref",
+          "name": "",
+          "closestAid": "file-upload-input-ref"
+        },
+        {
+          "tag": "button",
+          "type": "",
+          "ownAid": "",
+          "name": "",
+          "closestAid": "applyFlowMyExpPage"
+        },
+        {
+          "tag": "input",
+          "type": "text",
+          "ownAid": "",
+          "name": "url",
+          "closestAid": "formField-url"
+        },
+        {
+          "tag": "button",
+          "type": "",
+          "ownAid": "add-button",
+          "name": "",
+          "closestAid": "add-button"
+        },
+        {
+          "tag": "input",
+          "type": "text",
+          "ownAid": "",
+          "name": "linkedInAccount",
+          "closestAid": "formField-linkedInAccount"
+        },
+        {
+          "tag": "button",
+          "type": "",
+          "ownAid": "pageFooterBackButton",
+          "name": "",
+          "closestAid": "pageFooterBackButton"
+        },
+        {
+          "tag": "button",
+          "type": "",
+          "ownAid": "pageFooterNextButton",
+          "name": "",
+          "closestAid": "pageFooterNextButton"
+        }
+      ]
+    }
+  ]
+}

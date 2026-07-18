@@ -32,6 +32,33 @@ describe('resolveFields', () => {
   });
 });
 
+describe('resolveFields — My Experience', () => {
+  const withExperience: ApplicantData = {
+    ...base,
+    work: [{ company: 'Analytical Engines', title: 'Mathematician', startDate: '1842', current: true, bullets: ['Wrote the first algorithm', 'Designed the engine'] }],
+    links: [
+      { label: 'linkedin', url: 'https://linkedin.com/in/ada' },
+      { label: 'github', url: 'https://github.com/ada' },
+    ],
+  };
+  const byLabel = Object.fromEntries(resolveFields(withExperience).map((r) => [r.field.label, r]));
+
+  it('maps first work entry text fields', () => {
+    expect(byLabel['Job title']?.value).toBe('Mathematician');
+    expect(byLabel['Company']?.value).toBe('Analytical Engines');
+    expect(byLabel['Role description']?.value).toBe('Wrote the first algorithm\nDesigned the engine');
+  });
+
+  it('role description targets a textarea', () => {
+    expect(byLabel['Role description']?.selector).toBe('[data-automation-id="formField-roleDescription"] textarea');
+  });
+
+  it('maps linkedin and website links', () => {
+    expect(byLabel['LinkedIn']?.value).toBe('https://linkedin.com/in/ada');
+    expect(byLabel['Website']?.value).toBe('https://github.com/ada');
+  });
+});
+
 describe('selectorFor', () => {
   it('targets the inner input of the formField wrapper', () => {
     const firstName = WORKDAY_TEXT_FIELDS.find((f) => f.label === 'First name')!;

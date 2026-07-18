@@ -1,0 +1,476 @@
+{
+  "capturedAt": "2026-07-18T17:02:41.520Z",
+  "stage": 5,
+  "dumps": [
+    {
+      "href": "https://pwc.wd3.myworkdayjobs.com/en-US/Global_Experienced_Careers/job/Amsterdam/XMLNAME--Senior--Associate-Operational-Tax-Reporting_736247WD/apply/applyManually",
+      "count": 57,
+      "rows": [
+        {
+          "automationId": "accessibilitySkipToMainContent",
+          "tag": "a",
+          "type": "",
+          "label": "",
+          "visible": true
+        },
+        {
+          "automationId": "header",
+          "tag": "div",
+          "type": "",
+          "label": "",
+          "visible": true
+        },
+        {
+          "automationId": "logoLink",
+          "tag": "a",
+          "type": "",
+          "label": "",
+          "visible": true
+        },
+        {
+          "automationId": "logo",
+          "tag": "img",
+          "type": "",
+          "label": "",
+          "visible": true
+        },
+        {
+          "automationId": "headerTitle",
+          "tag": "div",
+          "type": "",
+          "label": "",
+          "visible": true
+        },
+        {
+          "automationId": "navigationContainer",
+          "tag": "div",
+          "type": "",
+          "label": "",
+          "visible": true
+        },
+        {
+          "automationId": "utilityButtonBar",
+          "tag": "div",
+          "type": "",
+          "label": "",
+          "visible": true
+        },
+        {
+          "automationId": "utilityButtonBarLanguageMenu",
+          "tag": "div",
+          "type": "",
+          "label": "",
+          "visible": true
+        },
+        {
+          "automationId": "utilityMenuButton",
+          "tag": "button",
+          "type": "",
+          "label": "",
+          "visible": true
+        },
+        {
+          "automationId": "utility-button-bar-divider",
+          "tag": "div",
+          "type": "",
+          "label": "",
+          "visible": true
+        },
+        {
+          "automationId": "utilityButtonBarSettingsMenu",
+          "tag": "div",
+          "type": "",
+          "label": "",
+          "visible": true
+        },
+        {
+          "automationId": "utilityMenuButton",
+          "tag": "button",
+          "type": "",
+          "label": "",
+          "visible": true
+        },
+        {
+          "automationId": "utility-button-bar-divider",
+          "tag": "div",
+          "type": "",
+          "label": "",
+          "visible": true
+        },
+        {
+          "automationId": "utilityButtonAccountTasksMenu",
+          "tag": "div",
+          "type": "",
+          "label": "",
+          "visible": true
+        },
+        {
+          "automationId": "utilityMenuButton",
+          "tag": "button",
+          "type": "",
+          "label": "",
+          "visible": true
+        },
+        {
+          "automationId": "navigationItem-Careers Homepage",
+          "tag": "button",
+          "type": "",
+          "label": "",
+          "visible": true
+        },
+        {
+          "automationId": "navigationItem-Candidate Home",
+          "tag": "button",
+          "type": "",
+          "label": "",
+          "visible": true
+        },
+        {
+          "automationId": "hammyMenuIcon",
+          "tag": "button",
+          "type": "",
+          "label": "main menu",
+          "visible": true
+        },
+        {
+          "automationId": "applyFlowPage",
+          "tag": "div",
+          "type": "",
+          "label": "",
+          "visible": true
+        },
+        {
+          "automationId": "backToJobPosting",
+          "tag": "button",
+          "type": "button",
+          "label": "",
+          "visible": true
+        },
+        {
+          "automationId": "jobTitleHeading",
+          "tag": "h2",
+          "type": "",
+          "label": "",
+          "visible": true
+        },
+        {
+          "automationId": "progressBar",
+          "tag": "ol",
+          "type": "",
+          "label": "",
+          "visible": true
+        },
+        {
+          "automationId": "progressBarCompletedStep",
+          "tag": "li",
+          "type": "",
+          "label": "",
+          "visible": true
+        },
+        {
+          "automationId": "progressBarCompletedStep",
+          "tag": "li",
+          "type": "",
+          "label": "",
+          "visible": true
+        },
+        {
+          "automationId": "progressBarCompletedStep",
+          "tag": "li",
+          "type": "",
+          "label": "",
+          "visible": true
+        },
+        {
+          "automationId": "progressBarCompletedStep",
+          "tag": "li",
+          "type": "",
+          "label": "",
+          "visible": true
+        },
+        {
+          "automationId": "progressBarCompletedStep",
+          "tag": "li",
+          "type": "",
+          "label": "",
+          "visible": true
+        },
+        {
+          "automationId": "progressBarActiveStep",
+          "tag": "li",
+          "type": "",
+          "label": "",
+          "visible": true
+        },
+        {
+          "automationId": "applyFlowReviewPage",
+          "tag": "div",
+          "type": "",
+          "label": "",
+          "visible": true
+        },
+        {
+          "automationId": "smartDivider",
+          "tag": "div",
+          "type": "",
+          "label": "",
+          "visible": true
+        },
+        {
+          "automationId": "smartDivider",
+          "tag": "div",
+          "type": "",
+          "label": "",
+          "visible": true
+        },
+        {
+          "automationId": "smartDivider",
+          "tag": "div",
+          "type": "",
+          "label": "",
+          "visible": true
+        },
+        {
+          "automationId": "smartDivider",
+          "tag": "div",
+          "type": "",
+          "label": "",
+          "visible": true
+        },
+        {
+          "automationId": "smartDivider",
+          "tag": "div",
+          "type": "",
+          "label": "",
+          "visible": true
+        },
+        {
+          "automationId": "skills",
+          "tag": "ul",
+          "type": "",
+          "label": "",
+          "visible": true
+        },
+        {
+          "automationId": "smartDivider",
+          "tag": "div",
+          "type": "",
+          "label": "",
+          "visible": true
+        },
+        {
+          "automationId": "formField-",
+          "tag": "div",
+          "type": "",
+          "label": "",
+          "visible": true
+        },
+        {
+          "automationId": "attachments-FileUpload",
+          "tag": "div",
+          "type": "",
+          "label": "",
+          "visible": true
+        },
+        {
+          "automationId": "file-upload-item",
+          "tag": "div",
+          "type": "",
+          "label": "",
+          "visible": true
+        },
+        {
+          "automationId": "ariaLive",
+          "tag": "div",
+          "type": "",
+          "label": "",
+          "visible": false
+        },
+        {
+          "automationId": "ariaLiveMessage",
+          "tag": "div",
+          "type": "",
+          "label": "",
+          "visible": false
+        },
+        {
+          "automationId": "file-upload-item-name",
+          "tag": "div",
+          "type": "",
+          "label": "",
+          "visible": true
+        },
+        {
+          "automationId": "smartDivider",
+          "tag": "div",
+          "type": "",
+          "label": "",
+          "visible": true
+        },
+        {
+          "automationId": "smartDivider",
+          "tag": "div",
+          "type": "",
+          "label": "",
+          "visible": true
+        },
+        {
+          "automationId": "smartDivider",
+          "tag": "div",
+          "type": "",
+          "label": "",
+          "visible": true
+        },
+        {
+          "automationId": "richText",
+          "tag": "div",
+          "type": "",
+          "label": "",
+          "visible": true
+        },
+        {
+          "automationId": "smartDivider",
+          "tag": "div",
+          "type": "",
+          "label": "",
+          "visible": true
+        },
+        {
+          "automationId": "richText",
+          "tag": "div",
+          "type": "",
+          "label": "",
+          "visible": true
+        },
+        {
+          "automationId": "richText",
+          "tag": "div",
+          "type": "",
+          "label": "",
+          "visible": true
+        },
+        {
+          "automationId": "smartDivider",
+          "tag": "div",
+          "type": "",
+          "label": "",
+          "visible": true
+        },
+        {
+          "automationId": "smartDivider",
+          "tag": "div",
+          "type": "",
+          "label": "",
+          "visible": true
+        },
+        {
+          "automationId": "pageFooter",
+          "tag": "div",
+          "type": "",
+          "label": "",
+          "visible": true
+        },
+        {
+          "automationId": "pageFooterBackButton",
+          "tag": "button",
+          "type": "",
+          "label": "",
+          "visible": true
+        },
+        {
+          "automationId": "pageFooterNextButton",
+          "tag": "button",
+          "type": "",
+          "label": "",
+          "visible": true
+        },
+        {
+          "automationId": "footerContainer",
+          "tag": "div",
+          "type": "",
+          "label": "",
+          "visible": true
+        },
+        {
+          "automationId": "privacyLink",
+          "tag": "a",
+          "type": "",
+          "label": "Privacy Statement",
+          "visible": true
+        },
+        {
+          "automationId": "logo",
+          "tag": "div",
+          "type": "",
+          "label": "",
+          "visible": true
+        }
+      ],
+      "controls": [
+        {
+          "tag": "button",
+          "type": "",
+          "ownAid": "utilityMenuButton",
+          "name": "",
+          "closestAid": "utilityMenuButton"
+        },
+        {
+          "tag": "button",
+          "type": "",
+          "ownAid": "utilityMenuButton",
+          "name": "",
+          "closestAid": "utilityMenuButton"
+        },
+        {
+          "tag": "button",
+          "type": "",
+          "ownAid": "utilityMenuButton",
+          "name": "",
+          "closestAid": "utilityMenuButton"
+        },
+        {
+          "tag": "button",
+          "type": "",
+          "ownAid": "navigationItem-Careers Homepage",
+          "name": "",
+          "closestAid": "navigationItem-Careers Homepage"
+        },
+        {
+          "tag": "button",
+          "type": "",
+          "ownAid": "navigationItem-Candidate Home",
+          "name": "",
+          "closestAid": "navigationItem-Candidate Home"
+        },
+        {
+          "tag": "button",
+          "type": "",
+          "ownAid": "hammyMenuIcon",
+          "name": "",
+          "closestAid": "hammyMenuIcon"
+        },
+        {
+          "tag": "button",
+          "type": "button",
+          "ownAid": "backToJobPosting",
+          "name": "",
+          "closestAid": "backToJobPosting"
+        },
+        {
+          "tag": "button",
+          "type": "",
+          "ownAid": "pageFooterBackButton",
+          "name": "",
+          "closestAid": "pageFooterBackButton"
+        },
+        {
+          "tag": "button",
+          "type": "",
+          "ownAid": "pageFooterNextButton",
+          "name": "",
+          "closestAid": "pageFooterNextButton"
+        }
+      ]
+    }
+  ]
+}

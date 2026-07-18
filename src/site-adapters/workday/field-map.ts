@@ -15,6 +15,8 @@ export interface WorkdayTextField {
   label: string;
   /** Workday `formField-*` wrapper automation-id. */
   wrapperId: string;
+  /** Inner control tag (Workday uses `textarea` for long text like role description). */
+  control?: 'input' | 'textarea';
   /** Reads the source value from the normalized model. */
   get: (data: ApplicantData) => string | undefined;
   /** Optional cleanup applied to the read value before filling. */
@@ -24,6 +26,8 @@ export interface WorkdayTextField {
 // Workday's phoneNumber field wants digits only (country code lives in a separate
 // dropdown, handled in a later increment). Strip formatting to avoid a validation error.
 const digitsOnly = (v: string) => v.replace(/\D/g, '');
+const linkOf = (d: ApplicantData, kinds: string[]) =>
+  d.links.find((l) => kinds.some((k) => new RegExp(k, 'i').test(l.url) || l.label.toLowerCase() === k))?.url;
 
 export const WORKDAY_TEXT_FIELDS: WorkdayTextField[] = [
   // Account / sign-in page.
@@ -33,11 +37,23 @@ export const WORKDAY_TEXT_FIELDS: WorkdayTextField[] = [
   { label: 'Last name', wrapperId: 'formField-legalName--lastName', get: (d) => d.contact.lastName },
   { label: 'Phone', wrapperId: 'formField-phoneNumber', get: (d) => d.contact.phone, transform: digitsOnly },
   { label: 'Address', wrapperId: 'formField-addressLine1', get: (d) => d.contact.location },
+  // My Experience page — first work entry (repeatable entries handled in a later increment).
+  { label: 'Job title', wrapperId: 'formField-jobTitle', get: (d) => d.work[0]?.title },
+  { label: 'Company', wrapperId: 'formField-companyName', get: (d) => d.work[0]?.company },
+  {
+    label: 'Role description',
+    wrapperId: 'formField-roleDescription',
+    control: 'textarea',
+    get: (d) => (d.work[0]?.bullets.length ? d.work[0]!.bullets.join('\n') : undefined),
+  },
+  // My Experience — links.
+  { label: 'LinkedIn', wrapperId: 'formField-linkedInAccount', get: (d) => linkOf(d, ['linkedin']) },
+  { label: 'Website', wrapperId: 'formField-url', get: (d) => linkOf(d, ['github', 'other']) },
 ];
 
-/** CSS selector for a field's inner text input. */
+/** CSS selector for a field's inner control. */
 export function selectorFor(field: WorkdayTextField): string {
-  return `[data-automation-id="${field.wrapperId}"] input`;
+  return `[data-automation-id="${field.wrapperId}"] ${field.control ?? 'input'}`;
 }
 
 export interface ResolvedField {

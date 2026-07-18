@@ -55,6 +55,15 @@ implementations that touch `chrome.*` or the DOM live at the **edge**, outside c
 7. **Tests.** Parser, normalizer, and adapter mapping get Vitest coverage. Maintain
    per-site adapter tests. Playwright form-fill tests deferred to a later stage.
 
+## Workday reference
+
+`docs/workday-dom-reference.md` documents the real Workday application DOM (all steps,
+field automation-ids, widget types, and the `ApplicantData` mapping) captured from live
+postings. Raw structure dumps and the interactive capture tools live in `e2e/capture/`
+(`capture-dom.mjs`, `capture-stages.mjs`, `e2e/real-run.md`). Read the reference before
+extending `src/site-adapters/workday/`. Never auto-fill EEO/Voluntary-Disclosure fields,
+passwords, or the `beecatcher` honeypot.
+
 ## Commands
 
 ```

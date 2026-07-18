@@ -20,6 +20,19 @@
       <div data-automation-id="formField-phoneNumber">
         <label>Phone Number</label><input name="phoneNumber" type="text" />
       </div>
+      <!-- My Experience fields (same native-setter path; shown together for the test). -->
+      <div data-automation-id="formField-jobTitle">
+        <label>Job Title</label><input name="jobTitle" type="text" />
+      </div>
+      <div data-automation-id="formField-companyName">
+        <label>Company</label><input name="companyName" type="text" />
+      </div>
+      <div data-automation-id="formField-roleDescription">
+        <label>Role Description</label><textarea name="roleDescription"></textarea>
+      </div>
+      <div data-automation-id="formField-linkedInAccount">
+        <label>LinkedIn</label><input name="linkedInAccount" type="text" />
+      </div>
       <button data-automation-id="pageFooterNextButton" type="button">Save and Continue</button>
     </div>
 
@@ -28,7 +41,7 @@
       // (what the app state would hold) is mirrored into data-committed ONLY when a real
       // `input` event fires. A raw `el.value = x` without dispatching events does NOT
       // update it — exactly the failure the native-setter path must overcome.
-      for (const input of document.querySelectorAll('input')) {
+      for (const input of document.querySelectorAll('input, textarea')) {
         input.dataset.committed = '';
         input.addEventListener('input', (e) => {
           e.target.dataset.committed = e.target.value;
