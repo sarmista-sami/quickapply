@@ -11,7 +11,7 @@ interface UploadProps {
   label?: string;
 }
 
-export function Upload({ onParsed, label = 'Upload résumé (.docx)' }: UploadProps) {
+export function Upload({ onParsed, label = 'Upload résumé (.docx / .pdf)' }: UploadProps) {
   const inputRef = useRef<HTMLInputElement>(null);
   const [error, setError] = useState<string | null>(null);
   const [busy, setBusy] = useState(false);
@@ -39,7 +39,7 @@ export function Upload({ onParsed, label = 'Upload résumé (.docx)' }: UploadPr
       <input
         ref={inputRef}
         type="file"
-        accept=".docx,application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+        accept=".docx,.pdf,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/pdf"
         style={{ display: 'none' }}
         onChange={onFile}
       />

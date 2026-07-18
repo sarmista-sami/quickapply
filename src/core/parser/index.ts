@@ -8,7 +8,7 @@ import type {
 
 export interface ParseMeta {
   sourceName: string;
-  format: 'docx';
+  format: 'docx' | 'pdf';
 }
 
 /**

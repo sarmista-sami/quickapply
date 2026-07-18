@@ -4,24 +4,38 @@ import type { ApplicantData } from '@/src/types/applicant-data';
 
 export class UnsupportedFormatError extends Error {
   constructor() {
-    super('Unsupported format — please upload a .docx file.');
+    super('Unsupported format — please upload a .docx or .pdf file.');
     this.name = 'UnsupportedFormatError';
   }
 }
 
 /**
- * Edge pipeline wiring the layers: File → docx text → parse → normalize.
+ * Edge pipeline wiring the layers: File → text → parse → normalize.
  * Returns best-effort {@link ApplicantData} (may be schema-invalid where the résumé
  * omitted required fields); the preview validates and the user completes it.
  *
- * mammoth (~700 kB) is loaded lazily so it stays out of the side panel's initial
- * bundle and is only fetched when the user actually picks a file.
+ * The docx (mammoth) and pdf (pdf.js) extractors are heavy, so they're loaded lazily —
+ * only the one matching the picked file is fetched, keeping the initial bundle small.
  */
 export async function parseResumeFile(file: File): Promise<ApplicantData> {
-  const { isDocx, extractDocxText } = await import('@/src/parsers/docx/extract');
-  if (!isDocx(file)) throw new UnsupportedFormatError();
-  const buffer = await file.arrayBuffer();
-  const text = await extractDocxText(buffer);
-  const raw = parse(text, { sourceName: file.name, format: 'docx' });
+  const format = await extractText(file);
+  const raw = parse(format.text, { sourceName: file.name, format: format.kind });
   return normalize(raw);
+}
+
+async function extractText(file: File): Promise<{ text: string; kind: 'docx' | 'pdf' }> {
+  const buffer = await file.arrayBuffer();
+
+  const docx = await import('@/src/parsers/docx/extract');
+  if (docx.isDocx(file)) return { text: await docx.extractDocxText(buffer), kind: 'docx' };
+
+  const pdf = await import('@/src/parsers/pdf/extract');
+  if (pdf.isPdf(file)) {
+    // Configure the bundled pdf.js worker before extracting (browser only).
+    const workerUrl = (await import('pdfjs-dist/build/pdf.worker.min.mjs?url')).default;
+    pdf.configureWorker(workerUrl);
+    return { text: await pdf.extractPdfText(buffer), kind: 'pdf' };
+  }
+
+  throw new UnsupportedFormatError();
 }
