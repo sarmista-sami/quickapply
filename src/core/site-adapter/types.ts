@@ -5,17 +5,27 @@ import type { ApplicantData } from '@/src/types/applicant-data';
  * (native property setter for React/Vue/etc., dropdown/date/autocomplete handling)
  * is a Stage-4 detail; the type exists now so the contract is fixed.
  */
+export type FillStrategy =
+  | 'native-setter'
+  | 'textarea'
+  | 'checkbox'
+  | 'dropdown'
+  | 'multiselect'
+  | 'date';
+
 export interface FieldFill {
   /** Human-readable label for the review UI. */
   label: string;
-  /** Selector or locator strategy for the target element. */
+  /** Selector for the target field wrapper (strategy locates the control within). */
   selector: string;
-  /** The normalized value to write. */
+  /** The normalized value to write, or a preview string for structured kinds. */
   value: string;
+  /** For multiselect: the individual values to add. */
+  values?: string[];
   /** The field's current on-page value, for a diff-style preview. */
   currentValue?: string;
-  /** Write strategy hint; expanded in later increments. */
-  strategy?: 'native-setter' | 'select' | 'checkbox' | 'radio' | 'custom';
+  /** How to write the field. */
+  strategy?: FillStrategy;
 }
 
 export interface FillResult {

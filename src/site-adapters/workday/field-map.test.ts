@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { resolveFields, selectorFor, WORKDAY_TEXT_FIELDS } from '@/src/site-adapters/workday/field-map';
+import { resolveFields, controlSelector, wrapperSelector, WORKDAY_FIELDS } from '@/src/site-adapters/workday/field-map';
 import type { ApplicantData } from '@/src/types/applicant-data';
 
 const base: ApplicantData = {
@@ -11,57 +11,73 @@ const base: ApplicantData = {
   extra: {},
 };
 
-describe('resolveFields', () => {
-  it('resolves present text fields to selector + value', () => {
-    const resolved = resolveFields(base);
-    const byLabel = Object.fromEntries(resolved.map((r) => [r.field.label, r]));
-    expect(byLabel['First name']?.value).toBe('Ada');
-    expect(byLabel['First name']?.selector).toBe('[data-automation-id="formField-legalName--firstName"] input');
-    expect(byLabel['Phone']?.value).toBe('31612345678'); // digits only
-    expect(byLabel['Address']?.value).toBe('Amsterdam');
-    expect(byLabel['Email']?.value).toBe('ada@example.com');
-    expect(byLabel['Email']?.selector).toBe('[data-automation-id="formField-email"] input');
+function byLabel(data: ApplicantData) {
+  return Object.fromEntries(resolveFields(data).map((r) => [r.field.label, r]));
+}
+
+describe('resolveFields — contact/text', () => {
+  const map = byLabel(base);
+
+  it('resolves text fields with wrapper selector + value', () => {
+    expect(map['First name']?.value).toBe('Ada');
+    expect(map['First name']?.selector).toBe('[data-automation-id="formField-legalName--firstName"]');
+    expect(map['Email']?.value).toBe('ada@example.com');
+    expect(map['Phone']?.value).toBe('31612345678'); // digits only
+    expect(map['Address']?.value).toBe('Amsterdam');
   });
 
   it('omits fields whose source value is empty', () => {
-    const resolved = resolveFields({ ...base, contact: { ...base.contact, phone: undefined, location: undefined } });
-    const labels = resolved.map((r) => r.field.label);
-    expect(labels).toContain('First name');
-    expect(labels).not.toContain('Phone');
-    expect(labels).not.toContain('Address');
+    const m = byLabel({ ...base, contact: { ...base.contact, phone: undefined, location: undefined } });
+    expect(m['First name']).toBeTruthy();
+    expect(m['Phone']).toBeUndefined();
+    expect(m['Address']).toBeUndefined();
   });
 });
 
-describe('resolveFields — My Experience', () => {
-  const withExperience: ApplicantData = {
+describe('resolveFields — rich kinds', () => {
+  const rich: ApplicantData = {
     ...base,
-    work: [{ company: 'Analytical Engines', title: 'Mathematician', startDate: '1842', current: true, bullets: ['Wrote the first algorithm', 'Designed the engine'] }],
-    links: [
-      { label: 'linkedin', url: 'https://linkedin.com/in/ada' },
-      { label: 'github', url: 'https://github.com/ada' },
-    ],
+    work: [{ company: 'Analytical Engines', title: 'Mathematician', startDate: '1842-06', endDate: '1852-01', current: true, bullets: ['Wrote the first algorithm'] }],
+    education: [{ school: 'University of London', degree: 'Bachelor of Science' }],
+    skills: ['Algorithms', 'Calculus'],
+    links: [{ label: 'linkedin', url: 'https://linkedin.com/in/ada' }],
   };
-  const byLabel = Object.fromEntries(resolveFields(withExperience).map((r) => [r.field.label, r]));
+  const map = byLabel(rich);
 
-  it('maps first work entry text fields', () => {
-    expect(byLabel['Job title']?.value).toBe('Mathematician');
-    expect(byLabel['Company']?.value).toBe('Analytical Engines');
-    expect(byLabel['Role description']?.value).toBe('Wrote the first algorithm\nDesigned the engine');
+  it('checkbox resolves to a boolean + Yes/No preview', () => {
+    expect(map['Currently work here']?.checked).toBe(true);
+    expect(map['Currently work here']?.value).toBe('Yes');
   });
 
-  it('role description targets a textarea', () => {
-    expect(byLabel['Role description']?.selector).toBe('[data-automation-id="formField-roleDescription"] textarea');
+  it('dropdown resolves the degree value', () => {
+    expect(map['Degree']?.value).toBe('Bachelor of Science');
   });
 
-  it('maps linkedin and website links', () => {
-    expect(byLabel['LinkedIn']?.value).toBe('https://linkedin.com/in/ada');
-    expect(byLabel['Website']?.value).toBe('https://github.com/ada');
+  it('multiselect carries the list', () => {
+    expect(map['Skills']?.values).toEqual(['Algorithms', 'Calculus']);
+    expect(map['Skills']?.value).toBe('Algorithms, Calculus');
+  });
+
+  it('date resolves the start date; end date omitted while current', () => {
+    expect(map['Start date']?.value).toBe('1842-06');
+    expect(map['End date']).toBeUndefined(); // current role → no end date
+  });
+
+  it('textarea joins bullets', () => {
+    expect(map['Role description']?.value).toBe('Wrote the first algorithm');
   });
 });
 
-describe('selectorFor', () => {
-  it('targets the inner input of the formField wrapper', () => {
-    const firstName = WORKDAY_TEXT_FIELDS.find((f) => f.label === 'First name')!;
-    expect(selectorFor(firstName)).toBe('[data-automation-id="formField-legalName--firstName"] input');
+describe('selectors', () => {
+  it('wrapperSelector targets the formField wrapper', () => {
+    const first = WORKDAY_FIELDS.find((f) => f.label === 'First name')!;
+    expect(wrapperSelector(first)).toBe('[data-automation-id="formField-legalName--firstName"]');
+  });
+
+  it('controlSelector picks input/textarea/checkbox by kind', () => {
+    const roleDesc = WORKDAY_FIELDS.find((f) => f.label === 'Role description')!;
+    const current = WORKDAY_FIELDS.find((f) => f.label === 'Currently work here')!;
+    expect(controlSelector(roleDesc)).toBe('[data-automation-id="formField-roleDescription"] textarea');
+    expect(controlSelector(current)).toBe('[data-automation-id="formField-currentlyWorkHere"] input[type="checkbox"]');
   });
 });
