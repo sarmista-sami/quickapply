@@ -1,13 +1,14 @@
 import type { FieldFill, FillResult } from '@/src/core/site-adapter/types';
+import type { ApplicantData } from '@/src/types/applicant-data';
 
 /**
  * Typed message protocol between the side panel and the content script.
- * Definitions only — no transport logic yet (Stage 4 wires this up).
  */
 
-/** Side panel → content: ask the active adapter what it would fill. */
+/** Side panel → content: ask the active adapter what it would fill for this data. */
 export interface PlanRequest {
   type: 'plan-request';
+  data: ApplicantData;
 }
 
 /** Content → side panel: the planned writes, for user review before filling. */

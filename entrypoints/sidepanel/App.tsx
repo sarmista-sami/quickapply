@@ -5,6 +5,7 @@ import { SyncedStorageAdapter } from '@/src/storage/synced-storage-adapter';
 import { validateApplicant } from './validation';
 import { Upload } from './components/Upload';
 import { Preview } from './components/Preview';
+import { FillPage } from './components/FillPage';
 import { ui } from './components/fields';
 
 export function App() {
@@ -72,6 +73,7 @@ export function App() {
           {syncWarning && (
             <div style={{ ...ui.error, marginTop: '0.4rem', color: '#b45309' }}>{syncWarning}</div>
           )}
+          <FillPage data={data} />
         </>
       )}
     </main>

@@ -1,0 +1,653 @@
+{
+  "capturedAt": "2026-07-18T16:33:22.010Z",
+  "url": "https://pwc.wd3.myworkdayjobs.com/en-US/Global_Experienced_Careers/job/Amsterdam/XMLNAME--Senior--Associate-Operational-Tax-Reporting_736247WD/apply/applyManually",
+  "dumps": [
+    {
+      "href": "https://pwc.wd3.myworkdayjobs.com/en-US/Global_Experienced_Careers/job/Amsterdam/XMLNAME--Senior--Associate-Operational-Tax-Reporting_736247WD/apply/applyManually",
+      "count": 52,
+      "rows": [
+        {
+          "automationId": "accessibilitySkipToMainContent",
+          "tag": "a",
+          "type": "",
+          "inputName": "",
+          "id": "accessibilitySkipToMainContent",
+          "placeholder": "",
+          "label": "",
+          "visible": true
+        },
+        {
+          "automationId": "legalNotice",
+          "tag": "div",
+          "type": "",
+          "inputName": "",
+          "id": "",
+          "placeholder": "",
+          "label": "",
+          "visible": true
+        },
+        {
+          "automationId": "legalNoticeToggleButton",
+          "tag": "button",
+          "type": "",
+          "inputName": "",
+          "id": "",
+          "placeholder": "",
+          "label": "",
+          "visible": true
+        },
+        {
+          "automationId": "legalNoticeDeclineButton",
+          "tag": "button",
+          "type": "",
+          "inputName": "",
+          "id": "",
+          "placeholder": "",
+          "label": "",
+          "visible": true
+        },
+        {
+          "automationId": "legalNoticeAcceptButton",
+          "tag": "button",
+          "type": "",
+          "inputName": "",
+          "id": "",
+          "placeholder": "",
+          "label": "",
+          "visible": true
+        },
+        {
+          "automationId": "header",
+          "tag": "div",
+          "type": "",
+          "inputName": "",
+          "id": "",
+          "placeholder": "",
+          "label": "",
+          "visible": true
+        },
+        {
+          "automationId": "logoLink",
+          "tag": "a",
+          "type": "",
+          "inputName": "",
+          "id": "",
+          "placeholder": "",
+          "label": "",
+          "visible": true
+        },
+        {
+          "automationId": "logo",
+          "tag": "img",
+          "type": "",
+          "inputName": "",
+          "id": "",
+          "placeholder": "",
+          "label": "",
+          "visible": true
+        },
+        {
+          "automationId": "headerTitle",
+          "tag": "div",
+          "type": "",
+          "inputName": "",
+          "id": "",
+          "placeholder": "",
+          "label": "",
+          "visible": true
+        },
+        {
+          "automationId": "navigationContainer",
+          "tag": "div",
+          "type": "",
+          "inputName": "",
+          "id": "",
+          "placeholder": "",
+          "label": "",
+          "visible": true
+        },
+        {
+          "automationId": "utilityButtonBar",
+          "tag": "div",
+          "type": "",
+          "inputName": "",
+          "id": "",
+          "placeholder": "",
+          "label": "",
+          "visible": true
+        },
+        {
+          "automationId": "utilityButtonBarLanguageMenu",
+          "tag": "div",
+          "type": "",
+          "inputName": "",
+          "id": "",
+          "placeholder": "",
+          "label": "",
+          "visible": true
+        },
+        {
+          "automationId": "utilityMenuButton",
+          "tag": "button",
+          "type": "",
+          "inputName": "",
+          "id": "languageSelectorButton",
+          "placeholder": "",
+          "label": "",
+          "visible": true
+        },
+        {
+          "automationId": "utility-button-bar-divider",
+          "tag": "div",
+          "type": "",
+          "inputName": "",
+          "id": "",
+          "placeholder": "",
+          "label": "",
+          "visible": true
+        },
+        {
+          "automationId": "utilityButtonSignIn",
+          "tag": "button",
+          "type": "",
+          "inputName": "",
+          "id": "",
+          "placeholder": "",
+          "label": "",
+          "visible": true
+        },
+        {
+          "automationId": "navigationItem-Careers Homepage",
+          "tag": "button",
+          "type": "",
+          "inputName": "",
+          "id": "",
+          "placeholder": "",
+          "label": "",
+          "visible": true
+        },
+        {
+          "automationId": "hammyMenuIcon",
+          "tag": "button",
+          "type": "",
+          "inputName": "",
+          "id": "hammyMenuIcon",
+          "placeholder": "",
+          "label": "main menu",
+          "visible": true
+        },
+        {
+          "automationId": "applyFlowPage",
+          "tag": "div",
+          "type": "",
+          "inputName": "",
+          "id": "",
+          "placeholder": "",
+          "label": "",
+          "visible": true
+        },
+        {
+          "automationId": "backToJobPosting",
+          "tag": "button",
+          "type": "button",
+          "inputName": "",
+          "id": "",
+          "placeholder": "",
+          "label": "",
+          "visible": true
+        },
+        {
+          "automationId": "jobTitleHeading",
+          "tag": "h2",
+          "type": "",
+          "inputName": "",
+          "id": "",
+          "placeholder": "",
+          "label": "",
+          "visible": true
+        },
+        {
+          "automationId": "progressBar",
+          "tag": "ol",
+          "type": "",
+          "inputName": "",
+          "id": "",
+          "placeholder": "",
+          "label": "",
+          "visible": true
+        },
+        {
+          "automationId": "progressBarActiveStep",
+          "tag": "li",
+          "type": "",
+          "inputName": "",
+          "id": "",
+          "placeholder": "",
+          "label": "",
+          "visible": true
+        },
+        {
+          "automationId": "progressBarInactiveStep",
+          "tag": "li",
+          "type": "",
+          "inputName": "",
+          "id": "",
+          "placeholder": "",
+          "label": "",
+          "visible": true
+        },
+        {
+          "automationId": "progressBarInactiveStep",
+          "tag": "li",
+          "type": "",
+          "inputName": "",
+          "id": "",
+          "placeholder": "",
+          "label": "",
+          "visible": true
+        },
+        {
+          "automationId": "progressBarInactiveStep",
+          "tag": "li",
+          "type": "",
+          "inputName": "",
+          "id": "",
+          "placeholder": "",
+          "label": "",
+          "visible": true
+        },
+        {
+          "automationId": "progressBarInactiveStep",
+          "tag": "li",
+          "type": "",
+          "inputName": "",
+          "id": "",
+          "placeholder": "",
+          "label": "",
+          "visible": true
+        },
+        {
+          "automationId": "progressBarInactiveStep",
+          "tag": "li",
+          "type": "",
+          "inputName": "",
+          "id": "",
+          "placeholder": "",
+          "label": "",
+          "visible": true
+        },
+        {
+          "automationId": "progressBarInactiveStep",
+          "tag": "li",
+          "type": "",
+          "inputName": "",
+          "id": "",
+          "placeholder": "",
+          "label": "",
+          "visible": true
+        },
+        {
+          "automationId": "signInContent",
+          "tag": "div",
+          "type": "",
+          "inputName": "",
+          "id": "",
+          "placeholder": "",
+          "label": "",
+          "visible": true
+        },
+        {
+          "automationId": "createAccountIntroMessage",
+          "tag": "div",
+          "type": "",
+          "inputName": "",
+          "id": "",
+          "placeholder": "",
+          "label": "",
+          "visible": true
+        },
+        {
+          "automationId": "passwordRulesList",
+          "tag": "div",
+          "type": "",
+          "inputName": "",
+          "id": "",
+          "placeholder": "",
+          "label": "",
+          "visible": true
+        },
+        {
+          "automationId": "richText",
+          "tag": "div",
+          "type": "",
+          "inputName": "",
+          "id": "",
+          "placeholder": "",
+          "label": "",
+          "visible": true
+        },
+        {
+          "automationId": "signInFormo",
+          "tag": "form",
+          "type": "",
+          "inputName": "",
+          "id": "",
+          "placeholder": "",
+          "label": "",
+          "visible": true
+        },
+        {
+          "automationId": "formField-email",
+          "tag": "div",
+          "type": "",
+          "inputName": "",
+          "id": "",
+          "placeholder": "",
+          "label": "",
+          "visible": true
+        },
+        {
+          "automationId": "email",
+          "tag": "input",
+          "type": "text",
+          "inputName": "",
+          "id": "input-4",
+          "placeholder": "",
+          "label": "Email Address*",
+          "visible": true
+        },
+        {
+          "automationId": "formField-password",
+          "tag": "div",
+          "type": "",
+          "inputName": "",
+          "id": "",
+          "placeholder": "",
+          "label": "",
+          "visible": true
+        },
+        {
+          "automationId": "password",
+          "tag": "input",
+          "type": "password",
+          "inputName": "",
+          "id": "input-5",
+          "placeholder": "",
+          "label": "Password*",
+          "visible": true
+        },
+        {
+          "automationId": "formField-verifyPassword",
+          "tag": "div",
+          "type": "",
+          "inputName": "",
+          "id": "",
+          "placeholder": "",
+          "label": "",
+          "visible": true
+        },
+        {
+          "automationId": "verifyPassword",
+          "tag": "input",
+          "type": "password",
+          "inputName": "",
+          "id": "input-6",
+          "placeholder": "",
+          "label": "Verify New Password*",
+          "visible": true
+        },
+        {
+          "automationId": "richText",
+          "tag": "div",
+          "type": "",
+          "inputName": "",
+          "id": "",
+          "placeholder": "",
+          "label": "",
+          "visible": true
+        },
+        {
+          "automationId": "createAccountExpandButton",
+          "tag": "button",
+          "type": "button",
+          "inputName": "",
+          "id": "10",
+          "placeholder": "",
+          "label": "",
+          "visible": true
+        },
+        {
+          "automationId": "formField-",
+          "tag": "div",
+          "type": "",
+          "inputName": "",
+          "id": "",
+          "placeholder": "",
+          "label": "",
+          "visible": true
+        },
+        {
+          "automationId": "createAccountCheckbox",
+          "tag": "input",
+          "type": "checkbox",
+          "inputName": "",
+          "id": "input-9",
+          "placeholder": "",
+          "label": "Yes, I have read and consent to the terms and conditions",
+          "visible": true
+        },
+        {
+          "automationId": "noCaptchaWrapper",
+          "tag": "div",
+          "type": "",
+          "inputName": "",
+          "id": "",
+          "placeholder": "",
+          "label": "",
+          "visible": true
+        },
+        {
+          "automationId": "click_filter",
+          "tag": "div",
+          "type": "",
+          "inputName": "",
+          "id": "",
+          "placeholder": "",
+          "label": "Create Account",
+          "visible": true
+        },
+        {
+          "automationId": "createAccountSubmitButton",
+          "tag": "button",
+          "type": "submit",
+          "inputName": "",
+          "id": "",
+          "placeholder": "",
+          "label": "",
+          "visible": true
+        },
+        {
+          "automationId": "signInLink",
+          "tag": "button",
+          "type": "",
+          "inputName": "",
+          "id": "",
+          "placeholder": "",
+          "label": "",
+          "visible": true
+        },
+        {
+          "automationId": "forgotPasswordLink",
+          "tag": "button",
+          "type": "",
+          "inputName": "",
+          "id": "",
+          "placeholder": "",
+          "label": "",
+          "visible": true
+        },
+        {
+          "automationId": "beecatcher",
+          "tag": "input",
+          "type": "text",
+          "inputName": "website",
+          "id": "ab3ad0c8-8d10-4df0-978f-77ee17f29d7c",
+          "placeholder": "",
+          "label": "Enter website. This input is for robots only, do not enter if you're human.",
+          "visible": true
+        },
+        {
+          "automationId": "footerContainer",
+          "tag": "div",
+          "type": "",
+          "inputName": "",
+          "id": "",
+          "placeholder": "",
+          "label": "",
+          "visible": true
+        },
+        {
+          "automationId": "privacyLink",
+          "tag": "a",
+          "type": "",
+          "inputName": "",
+          "id": "",
+          "placeholder": "",
+          "label": "Privacy Statement",
+          "visible": true
+        },
+        {
+          "automationId": "logo",
+          "tag": "div",
+          "type": "",
+          "inputName": "",
+          "id": "",
+          "placeholder": "",
+          "label": "",
+          "visible": true
+        }
+      ],
+      "controls": [
+        {
+          "tag": "button",
+          "type": "",
+          "ownAid": "legalNoticeToggleButton",
+          "name": "",
+          "closestAid": "legalNoticeToggleButton"
+        },
+        {
+          "tag": "button",
+          "type": "",
+          "ownAid": "legalNoticeDeclineButton",
+          "name": "",
+          "closestAid": "legalNoticeDeclineButton"
+        },
+        {
+          "tag": "button",
+          "type": "",
+          "ownAid": "legalNoticeAcceptButton",
+          "name": "",
+          "closestAid": "legalNoticeAcceptButton"
+        },
+        {
+          "tag": "button",
+          "type": "",
+          "ownAid": "utilityMenuButton",
+          "name": "",
+          "closestAid": "utilityMenuButton"
+        },
+        {
+          "tag": "button",
+          "type": "",
+          "ownAid": "utilityButtonSignIn",
+          "name": "",
+          "closestAid": "utilityButtonSignIn"
+        },
+        {
+          "tag": "button",
+          "type": "",
+          "ownAid": "navigationItem-Careers Homepage",
+          "name": "",
+          "closestAid": "navigationItem-Careers Homepage"
+        },
+        {
+          "tag": "button",
+          "type": "",
+          "ownAid": "hammyMenuIcon",
+          "name": "",
+          "closestAid": "hammyMenuIcon"
+        },
+        {
+          "tag": "button",
+          "type": "button",
+          "ownAid": "backToJobPosting",
+          "name": "",
+          "closestAid": "backToJobPosting"
+        },
+        {
+          "tag": "input",
+          "type": "text",
+          "ownAid": "email",
+          "name": "",
+          "closestAid": "email"
+        },
+        {
+          "tag": "input",
+          "type": "password",
+          "ownAid": "password",
+          "name": "",
+          "closestAid": "password"
+        },
+        {
+          "tag": "input",
+          "type": "password",
+          "ownAid": "verifyPassword",
+          "name": "",
+          "closestAid": "verifyPassword"
+        },
+        {
+          "tag": "button",
+          "type": "button",
+          "ownAid": "createAccountExpandButton",
+          "name": "",
+          "closestAid": "createAccountExpandButton"
+        },
+        {
+          "tag": "input",
+          "type": "checkbox",
+          "ownAid": "createAccountCheckbox",
+          "name": "",
+          "closestAid": "createAccountCheckbox"
+        },
+        {
+          "tag": "button",
+          "type": "submit",
+          "ownAid": "createAccountSubmitButton",
+          "name": "",
+          "closestAid": "createAccountSubmitButton"
+        },
+        {
+          "tag": "button",
+          "type": "",
+          "ownAid": "signInLink",
+          "name": "",
+          "closestAid": "signInLink"
+        },
+        {
+          "tag": "button",
+          "type": "",
+          "ownAid": "forgotPasswordLink",
+          "name": "",
+          "closestAid": "forgotPasswordLink"
+        },
+        {
+          "tag": "input",
+          "type": "text",
+          "ownAid": "beecatcher",
+          "name": "website",
+          "closestAid": "beecatcher"
+        }
+      ]
+    }
+  ]
+}

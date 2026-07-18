@@ -8,11 +8,13 @@ import type { ApplicantData } from '@/src/types/applicant-data';
 export interface FieldFill {
   /** Human-readable label for the review UI. */
   label: string;
-  /** Selector or locator strategy for the target element (refined in Stage 4). */
+  /** Selector or locator strategy for the target element. */
   selector: string;
   /** The normalized value to write. */
   value: string;
-  /** Write strategy hint; expanded in Stage 4. */
+  /** The field's current on-page value, for a diff-style preview. */
+  currentValue?: string;
+  /** Write strategy hint; expanded in later increments. */
   strategy?: 'native-setter' | 'select' | 'checkbox' | 'radio' | 'custom';
 }
 

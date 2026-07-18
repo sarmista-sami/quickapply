@@ -28,10 +28,17 @@ export function normalize(raw: RawResume): ApplicantData {
 
 function splitName(name?: string): { firstName: string; lastName: string } {
   if (!name) return { firstName: '', lastName: '' };
-  const parts = name.trim().split(/\s+/);
+  const parts = name.trim().split(/\s+/).map(normalizeNameCase);
   const firstName = parts[0] ?? '';
   const lastName = parts.length > 1 ? parts.slice(1).join(' ') : '';
   return { firstName, lastName };
+}
+
+// Title-case tokens written in ALL CAPS (e.g. "PRIYADARSHINI" → "Priyadarshini") so forms don't
+// flag the name. Mixed-case tokens (McDonald, O'Brien) are left untouched.
+function normalizeNameCase(token: string): string {
+  if (!/^[A-Z][A-Z'-]*[A-Z]$/.test(token)) return token;
+  return token.charAt(0) + token.slice(1).toLowerCase();
 }
 
 function sectionsOf(raw: RawResume, kind: ResumeSection['kind']): ResumeSection[] {

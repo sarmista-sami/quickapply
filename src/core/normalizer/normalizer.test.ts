@@ -50,6 +50,15 @@ describe('normalize', () => {
   });
 });
 
+describe('normalize — name capitalization', () => {
+  it('title-cases ALL-CAPS name tokens, leaves mixed case', () => {
+    const capsRaw = { ...raw, fields: { ...raw.fields, name: 'PRIYADARSHINI McDonald' } };
+    const data = normalize(capsRaw);
+    expect(data.contact.firstName).toBe('Priyadarshini');
+    expect(data.contact.lastName).toBe('McDonald');
+  });
+});
+
 describe('normalize — missing fields', () => {
   it('yields empty required strings the user must fill (best-effort)', () => {
     const empty = normalize({ sourceName: 'x.docx', format: 'docx', fields: { links: [] }, sections: [] });
