@@ -48,42 +48,118 @@ function sectionsOf(raw: RawResume, kind: ResumeSection['kind']): ResumeSection[
 // A header line (has a separator) starts a new entry; following lines are bullets.
 const ENTRY_SEP = /\s+[—–-]\s+|\s+\|\s+|\s+\bat\b\s+/i;
 
+// --- Date-range parsing ------------------------------------------------------
+
+const MONTHS: Record<string, string> = {
+  jan: '01', feb: '02', mar: '03', apr: '04', may: '05', jun: '06',
+  jul: '07', aug: '08', sep: '09', oct: '10', nov: '11', dec: '12',
+};
+
+const PRESENT_RE = /\b(present|current|now|ongoing)\b/i;
+const DATE_TOKEN = '(?:[a-z.]+\\s+)?\\d{4}|\\d{1,2}/\\d{4}|\\d{4}-\\d{1,2}';
+const RANGE_RE = new RegExp(
+  `(?:present|current|now|ongoing|${DATE_TOKEN})\\s*(?:-|–|—|to|until|till)\\s*(?:present|current|now|ongoing|${DATE_TOKEN})`,
+  'i',
+);
+const DATE_GLOBAL = /(?:([a-z]{3,9})\.?\s+)?(\d{4})(?:-(\d{1,2}))?|(\d{1,2})\/(\d{4})/gi;
+
+/** Normalized dates found in a string, in order (`YYYY` or `YYYY-MM`). */
+export function extractDates(text: string): string[] {
+  const out: string[] = [];
+  for (const m of text.matchAll(DATE_GLOBAL)) {
+    if (m[5]) {
+      out.push(`${m[5]}-${m[4]!.padStart(2, '0')}`); // MM/YYYY
+    } else if (m[2]) {
+      const monthName = m[1] ? MONTHS[m[1].slice(0, 3).toLowerCase()] : undefined;
+      const explicit = m[3] ? m[3].padStart(2, '0') : undefined;
+      const month = explicit ?? monthName;
+      out.push(month ? `${m[2]}-${month}` : m[2]);
+    }
+  }
+  return out;
+}
+
+export interface DateRange {
+  startDate?: string;
+  endDate?: string;
+  current: boolean;
+}
+
+/** Parse a start/end range from a line, only when it looks like a date range. */
+export function parseDateRange(line: string): DateRange | undefined {
+  if (!RANGE_RE.test(line)) return undefined;
+  const current = PRESENT_RE.test(line);
+  const dates = extractDates(line);
+  if (dates.length === 0 && !current) return undefined;
+  return { startDate: dates[0], endDate: current ? undefined : dates[1], current };
+}
+
+/** A line that is essentially just a date range (used to drop it from bullets). */
+function isPureDateLine(line: string): boolean {
+  const stripped = line.replace(DATE_GLOBAL, '').replace(PRESENT_RE, '').replace(/[-–—|,()]|to|until|till/gi, '').trim();
+  return stripped.length <= 2;
+}
+
+function applyDates(item: WorkItem | EduItem, headerLine: string, bullets: string[]): void {
+  let range = parseDateRange(headerLine);
+  if (!range) {
+    for (let i = 0; i < bullets.length; i += 1) {
+      const r = parseDateRange(bullets[i]!);
+      if (r) {
+        range = r;
+        if (isPureDateLine(bullets[i]!)) bullets.splice(i, 1);
+        break;
+      }
+    }
+  }
+  if (!range) return;
+  if ('bullets' in item) {
+    item.startDate = range.startDate ?? '';
+    item.endDate = range.endDate;
+    item.current = range.current;
+  } else {
+    item.startDate = range.startDate;
+    item.endDate = range.endDate;
+  }
+}
+
 function toWorkItems(section: ResumeSection): WorkItem[] {
-  const items: WorkItem[] = [];
-  let current: WorkItem | null = null;
+  const items: { item: WorkItem; header: string }[] = [];
+  let current: { item: WorkItem; header: string } | null = null;
 
   for (const line of section.blocks) {
-    if (ENTRY_SEP.test(line)) {
+    // A date-range line (e.g. "Jan 2019 - Present") also contains a dash, so exclude it
+    // from being read as an entry header.
+    if (ENTRY_SEP.test(line) && !parseDateRange(line)) {
       const [company = '', title = ''] = line.split(ENTRY_SEP);
-      current = {
-        company: company.trim(),
-        title: title.trim(),
-        startDate: '',
-        current: false,
-        bullets: [],
-      };
+      current = { item: { company: company.trim(), title: title.trim(), startDate: '', current: false, bullets: [] }, header: line };
       items.push(current);
     } else if (current) {
-      current.bullets.push(line);
+      current.item.bullets.push(line);
     } else {
-      // No header seen yet — start a bare entry so the text isn't lost.
-      current = { company: line.trim(), title: '', startDate: '', current: false, bullets: [] };
+      current = { item: { company: line.trim(), title: '', startDate: '', current: false, bullets: [] }, header: line };
       items.push(current);
     }
   }
-  return items;
+  for (const { item, header } of items) applyDates(item, header, item.bullets);
+  return items.map((i) => i.item);
 }
 
 function toEduItems(section: ResumeSection): EduItem[] {
   return section.blocks.map((line) => {
-    const [school = line, degree] = line.split(ENTRY_SEP);
-    return {
+    const [school = line, rest] = line.split(ENTRY_SEP);
+    const degreeText = rest?.trim();
+    // Best-effort field of study: "<degree> in <field>".
+    const fieldMatch = degreeText?.match(/\bin\s+([A-Za-z][A-Za-z &]+)/i);
+    const item: EduItem = {
       school: school.trim(),
-      degree: degree?.trim(),
-      field: undefined,
+      degree: degreeText ? degreeText.replace(/\s+in\s+[A-Za-z][A-Za-z &]+$/i, '').trim() || degreeText : undefined,
+      field: fieldMatch?.[1]?.trim(),
       startDate: undefined,
       endDate: undefined,
     };
+    applyDates(item, line, []);
+    return item;
   });
 }
 
