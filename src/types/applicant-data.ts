@@ -10,12 +10,24 @@ import { z } from 'zod';
  * Start minimal; grow the schema per development stage rather than speculatively.
  */
 
+export const AddressSchema = z.object({
+  line1: z.string().optional(),
+  line2: z.string().optional(),
+  city: z.string().optional(),
+  state: z.string().optional(),
+  postalCode: z.string().optional(),
+  country: z.string().optional(),
+});
+
 export const ContactSchema = z.object({
   firstName: z.string().min(1),
   lastName: z.string().min(1),
   email: z.string().email(),
   phone: z.string().optional(),
+  /** Freeform fallback (e.g. "Amsterdam"). */
   location: z.string().optional(),
+  /** Structured address for form fields; all parts optional. */
+  address: AddressSchema.optional(),
 });
 
 export const WorkItemSchema = z.object({
@@ -53,6 +65,7 @@ export const ApplicantDataSchema = z.object({
   extra: z.record(z.string(), z.string()).default({}),
 });
 
+export type Address = z.infer<typeof AddressSchema>;
 export type Contact = z.infer<typeof ContactSchema>;
 export type WorkItem = z.infer<typeof WorkItemSchema>;
 export type EduItem = z.infer<typeof EduItemSchema>;

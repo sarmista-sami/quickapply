@@ -36,7 +36,10 @@ export const WORKDAY_FIELDS: WorkdayField[] = [
   { label: 'First name', wrapperId: 'formField-legalName--firstName', kind: 'text', get: (d) => d.contact.firstName },
   { label: 'Last name', wrapperId: 'formField-legalName--lastName', kind: 'text', get: (d) => d.contact.lastName },
   { label: 'Phone', wrapperId: 'formField-phoneNumber', kind: 'text', get: (d) => d.contact.phone, transform: digitsOnly },
-  { label: 'Address', wrapperId: 'formField-addressLine1', kind: 'text', get: (d) => d.contact.location },
+  { label: 'Address line 1', wrapperId: 'formField-addressLine1', kind: 'text', get: (d) => d.contact.address?.line1 ?? d.contact.location },
+  { label: 'City', wrapperId: 'formField-city', kind: 'text', get: (d) => d.contact.address?.city },
+  { label: 'Postal code', wrapperId: 'formField-postalCode', kind: 'text', get: (d) => d.contact.address?.postalCode },
+  { label: 'Country', wrapperId: 'formField-country', kind: 'dropdown', get: (d) => d.contact.address?.country },
   // My Experience — first work entry (repeatable entries handled in a later increment).
   { label: 'Job title', wrapperId: 'formField-jobTitle', kind: 'text', get: (d) => d.work[0]?.title },
   { label: 'Company', wrapperId: 'formField-companyName', kind: 'text', get: (d) => d.work[0]?.company },

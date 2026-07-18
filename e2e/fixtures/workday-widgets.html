@@ -12,6 +12,12 @@
       <div data-automation-id="formField-degree">
         <label>Degree</label><button type="button" name="degree">Select One</button>
       </div>
+      <div data-automation-id="formField-city">
+        <label>City</label><input name="city" type="text" />
+      </div>
+      <div data-automation-id="formField-country">
+        <label>Country</label><button type="button" name="country">Select One</button>
+      </div>
       <div data-automation-id="formField-skills">
         <label>Skills</label>
         <ul class="chips"></ul>
@@ -29,6 +35,7 @@
       // Model Workday: options render in a portal at document root (promptOption items).
       const DEGREES = ['Bachelor of Science', 'Master of Science', 'PhD'];
       const SKILLS = ['Algorithms', 'Calculus', 'Fortran', 'Python'];
+      const COUNTRIES = ['Netherlands', 'United States', 'India'];
 
       // Controlled-state mirrors (data-committed), updated only on real events.
       for (const el of document.querySelectorAll('input, textarea')) {
@@ -70,6 +77,16 @@
         renderOptions(DEGREES, (text) => {
           degBtn.textContent = text;
           degBtn.dataset.selected = text;
+          clearPortal();
+        }),
+      );
+
+      // Country: same non-searchable dropdown pattern as Degree.
+      const ctryBtn = document.querySelector('[data-automation-id="formField-country"] button');
+      ctryBtn.addEventListener('click', () =>
+        renderOptions(COUNTRIES, (text) => {
+          ctryBtn.textContent = text;
+          ctryBtn.dataset.selected = text;
           clearPortal();
         }),
       );

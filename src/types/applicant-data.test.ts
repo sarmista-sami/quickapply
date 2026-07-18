@@ -42,6 +42,21 @@ describe('ApplicantDataSchema', () => {
     expect(parsed.extra).toEqual({});
   });
 
+  it('round-trips a structured address', () => {
+    const withAddr = {
+      ...valid,
+      contact: { ...valid.contact, address: { line1: '1 Sesame St', city: 'Amsterdam', postalCode: '1011', country: 'Netherlands' } },
+    };
+    const parsed = ApplicantDataSchema.parse(withAddr);
+    expect(parsed.contact.address?.city).toBe('Amsterdam');
+    expect(parsed.contact.address?.country).toBe('Netherlands');
+  });
+
+  it('validates data with no structured address (optional)', () => {
+    const parsed = ApplicantDataSchema.parse(valid);
+    expect(parsed.contact.address).toBeUndefined();
+  });
+
   it('has no password or payment fields in the schema shape', () => {
     const keys = Object.keys(ApplicantDataSchema.shape);
     const forbidden = /password|payment|card|cvv|ssn|creditcard/i;

@@ -23,14 +23,38 @@ describe('resolveFields — contact/text', () => {
     expect(map['First name']?.selector).toBe('[data-automation-id="formField-legalName--firstName"]');
     expect(map['Email']?.value).toBe('ada@example.com');
     expect(map['Phone']?.value).toBe('31612345678'); // digits only
-    expect(map['Address']?.value).toBe('Amsterdam');
+    expect(map['Address line 1']?.value).toBe('Amsterdam'); // from freeform location fallback
   });
 
   it('omits fields whose source value is empty', () => {
     const m = byLabel({ ...base, contact: { ...base.contact, phone: undefined, location: undefined } });
     expect(m['First name']).toBeTruthy();
     expect(m['Phone']).toBeUndefined();
-    expect(m['Address']).toBeUndefined();
+    expect(m['Address line 1']).toBeUndefined();
+  });
+});
+
+describe('resolveFields — structured address', () => {
+  const withAddr: ApplicantData = {
+    ...base,
+    contact: { ...base.contact, location: undefined, address: { line1: '1 Sesame St', city: 'Amsterdam', postalCode: '1011', country: 'Netherlands' } },
+  };
+  const map = byLabel(withAddr);
+
+  it('fills address line, city, postal, and country', () => {
+    expect(map['Address line 1']?.value).toBe('1 Sesame St');
+    expect(map['City']?.value).toBe('Amsterdam');
+    expect(map['Postal code']?.value).toBe('1011');
+    expect(map['Country']?.value).toBe('Netherlands');
+  });
+
+  it('country uses the dropdown strategy (checked via kind)', () => {
+    expect(map['Country']?.field.kind).toBe('dropdown');
+  });
+
+  it('address line 1 falls back to freeform location', () => {
+    const m = byLabel({ ...base, contact: { ...base.contact, location: 'Fallback St', address: undefined } });
+    expect(m['Address line 1']?.value).toBe('Fallback St');
   });
 });
 

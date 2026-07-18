@@ -11,6 +11,8 @@ export function Preview({ data, errors, onChange }: PreviewProps) {
   const patch = (partial: Partial<ApplicantData>) => onChange({ ...data, ...partial });
   const patchContact = (partial: Partial<ApplicantData['contact']>) =>
     patch({ contact: { ...data.contact, ...partial } });
+  const patchAddress = (partial: Partial<NonNullable<ApplicantData['contact']['address']>>) =>
+    patchContact({ address: { ...data.contact.address, ...partial } });
 
   const updateAt = <T,>(list: T[], i: number, partial: Partial<T>): T[] =>
     list.map((item, idx) => (idx === i ? { ...item, ...partial } : item));
@@ -30,6 +32,22 @@ export function Preview({ data, errors, onChange }: PreviewProps) {
           error={errors['contact.phone']} onChange={(v) => patchContact({ phone: v || undefined })} />
         <TextField label="Location" value={data.contact.location ?? ''}
           onChange={(v) => patchContact({ location: v || undefined })} />
+      </section>
+
+      <section style={ui.section}>
+        <h2 style={ui.h2}>Address</h2>
+        <TextField label="Line 1" value={data.contact.address?.line1 ?? ''}
+          onChange={(v) => patchAddress({ line1: v || undefined })} />
+        <TextField label="Line 2" value={data.contact.address?.line2 ?? ''}
+          onChange={(v) => patchAddress({ line2: v || undefined })} />
+        <TextField label="City" value={data.contact.address?.city ?? ''}
+          onChange={(v) => patchAddress({ city: v || undefined })} />
+        <TextField label="State / Province" value={data.contact.address?.state ?? ''}
+          onChange={(v) => patchAddress({ state: v || undefined })} />
+        <TextField label="Postal code" value={data.contact.address?.postalCode ?? ''}
+          onChange={(v) => patchAddress({ postalCode: v || undefined })} />
+        <TextField label="Country" value={data.contact.address?.country ?? ''}
+          onChange={(v) => patchAddress({ country: v || undefined })} />
       </section>
 
       <section style={ui.section}>

@@ -40,7 +40,7 @@ test('plan reads current values without mutating the page', async ({ page }) => 
   expect(first.currentValue).toBe('');
   // All fixture fields present (email is not in this fixture, so it is omitted).
   expect(plan.map((f: any) => f.label).sort()).toEqual([
-    'Address',
+    'Address line 1',
     'Company',
     'First name',
     'Job title',
