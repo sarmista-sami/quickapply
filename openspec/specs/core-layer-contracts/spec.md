@@ -4,21 +4,37 @@
 The typed interface contracts for the parser, normalizer, storage-port, and site-adapter layers (including the plan/fill split), locking layer boundaries so later stages fill in implementations against fixed, testable interfaces.
 ## Requirements
 ### Requirement: Parser layer contract
-The system SHALL define a parser layer that exposes `parse(file) => Promise<RawResume>`,
-independent of the browser. In this change the implementation is a stub.
+The system SHALL provide a pure parser layer that exposes
+`parse(text: string, meta: { sourceName: string; format: 'docx' }) => RawResume`,
+independent of the browser (no `chrome.*` or DOM APIs). It extracts high-confidence
+fields and best-effort sections from résumé text. Reading the file and extracting text
+from docx is done at the edge and is NOT part of the core parser.
 
-#### Scenario: Parser stub is reachable but unimplemented
-- **WHEN** the parser stub is invoked
-- **THEN** it throws a `NotImplemented` error
-- **AND** the parser module imports no `chrome.*` or DOM APIs
+#### Scenario: Parser extracts reliable contact fields
+- **WHEN** `parse` is given text containing an email address, a phone number, and a
+  LinkedIn URL
+- **THEN** it returns a `RawResume` whose detected fields include that email, phone, and
+  a link classified as LinkedIn
+
+#### Scenario: Parser segments sections best-effort
+- **WHEN** `parse` is given text with an "Experience" heading followed by role entries
+- **THEN** the returned `RawResume` groups the following blocks under a work section
+- **AND** text under no recognized heading is preserved as unclassified blocks
+
+#### Scenario: Parser stays browser-free
+- **WHEN** the parser module is imported
+- **THEN** it references no `chrome.*` or DOM globals and runs under Vitest in node
 
 ### Requirement: Normalizer layer contract
-The system SHALL define a normalizer that exposes `normalize(raw: RawResume) =>
-ApplicantData`, mapping format-specific input to the normalized model.
+The system SHALL provide a normalizer that exposes `normalize(raw: RawResume) =>
+ApplicantData`, mapping the parser output to the normalized model and applying schema
+defaults. It MUST be pure and browser-free.
 
-#### Scenario: Normalizer stub is reachable but unimplemented
-- **WHEN** the normalizer stub is invoked
-- **THEN** it throws a `NotImplemented` error
+#### Scenario: Normalizer produces valid ApplicantData
+- **WHEN** `normalize` is given a `RawResume` with detected contact fields and one work
+  section entry
+- **THEN** it returns an object that passes `ApplicantDataSchema` validation
+- **AND** absent optional collections default to empty arrays / empty `extra`
 
 ### Requirement: Applicant-data storage port
 The system SHALL define a `StoragePort` interface with `load(): Promise<ApplicantData |
