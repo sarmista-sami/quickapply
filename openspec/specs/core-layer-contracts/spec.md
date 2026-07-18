@@ -38,13 +38,12 @@ defaults. It MUST be pure and browser-free.
 
 ### Requirement: Applicant-data storage port
 The system SHALL define a `StoragePort` interface with `load(): Promise<ApplicantData |
-null>` and `save(data: ApplicantData): Promise<void>`, plus a `SyncStorageAdapter` stub
-that will implement it over `chrome.storage`.
+null>`, `save(data: ApplicantData): Promise<void>`, and `clear(): Promise<void>`. The
+interface MUST contain no browser types in `src/core`; concrete adapters live at the edge.
 
-#### Scenario: Storage adapter stub is reachable but unimplemented
-- **WHEN** the sync storage adapter's `load` or `save` is invoked
-- **THEN** it throws a `NotImplemented` error
-- **AND** the `StoragePort` interface itself contains no browser types in `src/core`
+#### Scenario: Port exposes load, save, and clear
+- **WHEN** the `StoragePort` interface is used
+- **THEN** it provides `load`, `save`, and `clear` and references no browser types in `src/core`
 
 ### Requirement: Site adapter contract with plan/fill split
 The system SHALL define a `SiteAdapter` interface exposing `matches(url)`,
