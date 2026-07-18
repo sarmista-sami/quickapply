@@ -22,6 +22,9 @@ beforeEach(() => {
       local: {
         get: vi.fn(async (key: string) => getFrom(local, key)),
         set: vi.fn(async (items: Record<string, unknown>) => Object.assign(local, items)),
+        remove: vi.fn(async (keys: string | string[]) => {
+          for (const k of Array.isArray(keys) ? keys : [keys]) delete local[k];
+        }),
       },
       sync: {
         get: vi.fn(async (keys: string | string[]) => getFrom(sync, keys)),
@@ -94,6 +97,15 @@ describe('SyncedStorageAdapter chunking', () => {
 describe('SyncedStorageAdapter.load', () => {
   it('returns null when nothing is stored', async () => {
     expect(await new SyncedStorageAdapter().load()).toBeNull();
+  });
+
+  it('clear() empties sync + local so load returns null', async () => {
+    const adapter = new SyncedStorageAdapter();
+    await adapter.save(full);
+    await adapter.clear();
+    expect(Object.keys(sync)).toHaveLength(0);
+    expect(Object.keys(local)).toHaveLength(0);
+    expect(await adapter.load()).toBeNull();
   });
 
   it('prefers sync (full) over local', async () => {

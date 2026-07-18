@@ -69,6 +69,13 @@ export class SyncedStorageAdapter implements StoragePort {
     return this.local.load();
   }
 
+  async clear(): Promise<void> {
+    const meta = (await chrome.storage.sync.get(META_KEY))[META_KEY] as ChunkMeta | undefined;
+    const keys = [META_KEY, ...chunkKeys(meta?.count ?? 0)];
+    await chrome.storage.sync.remove(keys);
+    await this.local.clear();
+  }
+
   private async loadFromSync(): Promise<ApplicantData | null> {
     const meta = (await chrome.storage.sync.get(META_KEY))[META_KEY] as ChunkMeta | undefined;
     if (!meta || meta.count <= 0) return null;

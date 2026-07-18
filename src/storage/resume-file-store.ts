@@ -37,6 +37,10 @@ export class ResumeFileStore {
     const stored = await this.loadStored();
     return stored ? storedToFile(stored) : null;
   }
+
+  async clear(): Promise<void> {
+    await chrome.storage.local.remove(KEY);
+  }
 }
 
 export function storedToFile(stored: StoredResume): File {

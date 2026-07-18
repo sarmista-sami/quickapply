@@ -9,6 +9,9 @@ beforeEach(() => {
       local: {
         get: vi.fn(async (key: string) => (key in local ? { [key]: local[key] } : {})),
         set: vi.fn(async (items: Record<string, unknown>) => Object.assign(local, items)),
+        remove: vi.fn(async (key: string) => {
+          delete local[key];
+        }),
       },
     },
   });
@@ -40,5 +43,11 @@ describe('ResumeFileStore', () => {
   it('storedToFile reconstructs from a stored record', () => {
     const file = storedToFile({ name: 'r.docx', type: 'text/plain', dataBase64: btoa('hi') });
     expect(file.name).toBe('r.docx');
+  });
+
+  it('clear() removes the stored file', async () => {
+    await store.save(new File([new Uint8Array([1])], 'r.docx'));
+    await store.clear();
+    expect(await store.load()).toBeNull();
   });
 });

@@ -8,4 +8,6 @@ import type { ApplicantData } from '@/src/types/applicant-data';
 export interface StoragePort {
   load(): Promise<ApplicantData | null>;
   save(data: ApplicantData): Promise<void>;
+  /** Remove all persisted applicant data. */
+  clear(): Promise<void>;
 }

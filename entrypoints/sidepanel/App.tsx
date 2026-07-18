@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState } from 'react';
 import type { ApplicantData } from '@/src/types/applicant-data';
 import type { StoragePort } from '@/src/core/applicant-data/storage-port';
 import { SyncedStorageAdapter } from '@/src/storage/synced-storage-adapter';
+import { ResumeFileStore } from '@/src/storage/resume-file-store';
 import { validateApplicant } from './validation';
 import { Upload } from './components/Upload';
 import { Preview } from './components/Preview';
@@ -40,6 +41,13 @@ export function App() {
     setSavedAt(new Date().toLocaleTimeString());
   }
 
+  async function clearAll() {
+    if (!confirm('Clear all saved résumé data on this device and your account?')) return;
+    await Promise.all([storage.clear(), new ResumeFileStore().clear()]);
+    setData(null);
+    setSavedAt(null);
+  }
+
   if (loading) return <main style={ui.page}>Loading…</main>;
 
   return (
@@ -74,6 +82,12 @@ export function App() {
             <div style={{ ...ui.error, marginTop: '0.4rem', color: '#b45309' }}>{syncWarning}</div>
           )}
           <FillPage data={data} />
+          <button
+            style={{ ...ui.ghostButton, marginTop: '0.75rem', color: '#b91c1c' }}
+            onClick={clearAll}
+          >
+            Clear saved data
+          </button>
         </>
       )}
     </main>

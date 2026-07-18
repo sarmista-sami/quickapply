@@ -17,4 +17,8 @@ export class LocalStorageAdapter implements StoragePort {
   async save(data: ApplicantData): Promise<void> {
     await chrome.storage.local.set({ [KEY]: data });
   }
+
+  async clear(): Promise<void> {
+    await chrome.storage.local.remove(KEY);
+  }
 }
