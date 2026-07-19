@@ -34,11 +34,11 @@ function splitName(name?: string): { firstName: string; lastName: string } {
   return { firstName, lastName };
 }
 
-// Title-case tokens written in ALL CAPS (e.g. "PRIYADARSHINI" → "Priyadarshini") so forms don't
-// flag the name. Mixed-case tokens (McDonald, O'Brien) are left untouched.
+// Capitalize the first letter of each name token and lowercase the rest, so names are
+// first-letter-capital only (e.g. "PRIYADARSHINI" / "mcdonald" → "Priyadarshini" / "Mcdonald").
 function normalizeNameCase(token: string): string {
-  if (!/^[A-Z][A-Z'-]*[A-Z]$/.test(token)) return token;
-  return token.charAt(0) + token.slice(1).toLowerCase();
+  if (!token) return token;
+  return token.charAt(0).toUpperCase() + token.slice(1).toLowerCase();
 }
 
 function sectionsOf(raw: RawResume, kind: ResumeSection['kind']): ResumeSection[] {

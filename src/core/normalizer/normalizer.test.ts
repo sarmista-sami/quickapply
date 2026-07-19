@@ -51,11 +51,17 @@ describe('normalize', () => {
 });
 
 describe('normalize — name capitalization', () => {
-  it('title-cases ALL-CAPS name tokens, leaves mixed case', () => {
-    const capsRaw = { ...raw, fields: { ...raw.fields, name: 'PRIYADARSHINI McDonald' } };
+  it('capitalizes only the first letter of each name token', () => {
+    const capsRaw = { ...raw, fields: { ...raw.fields, name: 'PRIYADARSHINI mcDONALD' } };
     const data = normalize(capsRaw);
     expect(data.contact.firstName).toBe('Priyadarshini');
-    expect(data.contact.lastName).toBe('McDonald');
+    expect(data.contact.lastName).toBe('Mcdonald');
+  });
+
+  it('capitalizes a lowercase name', () => {
+    const data = normalize({ ...raw, fields: { ...raw.fields, name: 'ada lovelace' } });
+    expect(data.contact.firstName).toBe('Ada');
+    expect(data.contact.lastName).toBe('Lovelace');
   });
 });
 

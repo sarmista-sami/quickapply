@@ -46,8 +46,10 @@ implementations that touch `chrome.*` or the DOM live at the **edge**, outside c
    one consistent `ApplicantData` model. Site coupling lives only in layer 4.
 4. **No sensitive fields.** The schema excludes passwords and payment details by
    design — never add them. Name / DOB / contact info are fine.
-5. **plan-before-fill.** Site adapters expose `plan()` (preview what will be filled)
-   separately from `fill()`. Never auto-submit a form. Always let the user review.
+5. **Auto-fill, never auto-submit.** Site adapters expose `plan()` (compute intended
+   writes, no mutation) separately from `fill()`. Detected **empty** fields are filled
+   automatically (never overwriting user input); the user reviews on the page and in the
+   panel. **Never submit or advance a form.**
 6. **Reliable field writes.** For React/Vue/Angular/custom sites, set values via the
    native property setter (not raw `input.value =`). Adapters must handle checkboxes,
    radios, native `<select>`, custom dropdowns, date pickers, autocomplete, multi-step

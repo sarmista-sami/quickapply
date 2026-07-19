@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import type { ApplicantData } from '@/src/types/applicant-data';
 import type { FieldFill, FillResult } from '@/src/core/site-adapter/types';
 import { requestPlan, requestFill, requestResumeUpload } from '../page-fill';
@@ -40,6 +40,12 @@ export function FillPage({ data }: FillPageProps) {
     }
   }
 
+  // Auto-review on open: the content script auto-fills empty fields on the page; this shows
+  // what's mapped for the active tab so the user can review.
+  useEffect(() => {
+    void preview();
+  }, []);
+
   async function fill(fields: FieldFill[]) {
     setBusy(true);
     try {
@@ -51,7 +57,11 @@ export function FillPage({ data }: FillPageProps) {
 
   return (
     <section style={{ ...ui.section, borderTop: '1px solid #e5e5e5', paddingTop: '0.75rem' }}>
-      <h2 style={ui.h2}>Fill this Workday page</h2>
+      <h2 style={ui.h2}>Workday page</h2>
+      <div style={{ ...ui.label, marginBottom: '0.4rem' }}>
+        Empty fields fill automatically as they appear. Review on the page; use “Fill now” to
+        re-apply.
+      </div>
 
       <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap' }}>
         <button
@@ -59,7 +69,7 @@ export function FillPage({ data }: FillPageProps) {
           disabled={busy}
           onClick={preview}
         >
-          {busy ? 'Working…' : 'Preview fill'}
+          {busy ? 'Working…' : 'Refresh'}
         </button>
         <button
           style={{ ...ui.ghostButton, ...(busy ? ui.buttonDisabled : {}) }}
@@ -97,10 +107,11 @@ export function FillPage({ data }: FillPageProps) {
                 </div>
               ))}
               <button style={ui.button} disabled={busy} onClick={() => fill(status.fields)}>
-                Fill {status.fields.length} field{status.fields.length === 1 ? '' : 's'}
+                Fill now ({status.fields.length})
               </button>
               <div style={{ ...ui.label, marginTop: '0.3rem' }}>
-                Review on the page after filling. The form is never submitted for you.
+                “Fill now” overwrites these {status.fields.length} field(s). The form is never
+                submitted for you.
               </div>
             </>
           )}
