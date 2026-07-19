@@ -38,7 +38,10 @@ Data flows one direction; `src/core/*` is pure and browser-free (no `chrome.*` /
 ## Stack
 
 WXT · React + TypeScript · Chrome Side Panel API · Zod · Vitest (unit) · Playwright (DOM
-e2e) · pnpm.
+e2e) · pnpm. No UI library — the side panel uses its own small design system
+(`entrypoints/sidepanel/style.css`: CSS custom properties, automatic light/dark theme,
+drag-and-drop upload, collapsible sections, sticky save bar). Render it headlessly with
+`node e2e/screenshot-panel.mjs` (screenshots land in `e2e/.tmp/`).
 
 ## Commands
 

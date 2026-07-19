@@ -2,7 +2,7 @@
   "name": "resume-extension",
   "description": "Chrome extension that parses a resume, normalizes it, and pre-fills job-application forms.",
   "private": true,
-  "version": "0.0.0",
+  "version": "0.1.0",
   "type": "module",
   "packageManager": "pnpm@11.14.0",
   "scripts": {
