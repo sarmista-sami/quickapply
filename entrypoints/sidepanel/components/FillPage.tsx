@@ -54,8 +54,11 @@ export function FillPage({ data }: FillPageProps) {
 
   // Auto-review on open (and whenever the applicant data changes): the content script
   // auto-fills empty fields on the page; this shows what's mapped so the user can review.
+  // Debounced — `data` changes on every keystroke in the preview form, and each plan
+  // request is a message round-trip to the active tab.
   useEffect(() => {
-    void preview();
+    const timer = setTimeout(() => void preview(), 400);
+    return () => clearTimeout(timer);
   }, [data]);
 
   return (
