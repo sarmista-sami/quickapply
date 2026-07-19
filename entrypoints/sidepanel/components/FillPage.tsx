@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react';
 import type { ApplicantData } from '@/src/types/applicant-data';
 import type { FieldFill, FillResult } from '@/src/core/site-adapter/types';
 import { requestPlan, requestFill, requestResumeUpload } from '../page-fill';
-import { ui } from './fields';
 
 interface FillPageProps {
   data: ApplicantData;
@@ -17,14 +16,18 @@ type Status =
 export function FillPage({ data }: FillPageProps) {
   const [status, setStatus] = useState<Status>({ kind: 'idle' });
   const [busy, setBusy] = useState(false);
-  const [attachMsg, setAttachMsg] = useState<string | null>(null);
+  const [attachMsg, setAttachMsg] = useState<{ ok: boolean; text: string } | null>(null);
 
   async function attachResume() {
     setBusy(true);
     setAttachMsg(null);
     try {
       const res = await requestResumeUpload();
-      setAttachMsg(res.ok ? 'Résumé attached to this page.' : res.error ?? 'Could not attach résumé.');
+      setAttachMsg(
+        res.ok
+          ? { ok: true, text: 'Résumé attached to this page.' }
+          : { ok: false, text: res.error ?? 'Could not attach résumé.' },
+      );
     } finally {
       setBusy(false);
     }
@@ -40,12 +43,6 @@ export function FillPage({ data }: FillPageProps) {
     }
   }
 
-  // Auto-review on open (and whenever the applicant data changes): the content script
-  // auto-fills empty fields on the page; this shows what's mapped so the user can review.
-  useEffect(() => {
-    void preview();
-  }, [data]);
-
   async function fill(fields: FieldFill[]) {
     setBusy(true);
     try {
@@ -55,80 +52,83 @@ export function FillPage({ data }: FillPageProps) {
     }
   }
 
+  // Auto-review on open (and whenever the applicant data changes): the content script
+  // auto-fills empty fields on the page; this shows what's mapped so the user can review.
+  useEffect(() => {
+    void preview();
+  }, [data]);
+
   return (
-    <section style={{ ...ui.section, borderTop: '1px solid #e5e5e5', paddingTop: '0.75rem' }}>
-      <h2 style={ui.h2}>Workday page</h2>
-      <div style={{ ...ui.label, marginBottom: '0.4rem' }}>
-        Empty fields fill automatically as they appear. Review on the page; use “Fill now” to
-        re-apply.
-      </div>
-
-      <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap' }}>
-        <button
-          style={{ ...ui.ghostButton, ...(busy ? ui.buttonDisabled : {}) }}
-          disabled={busy}
-          onClick={preview}
-        >
-          {busy ? 'Working…' : 'Refresh'}
-        </button>
-        <button
-          style={{ ...ui.ghostButton, ...(busy ? ui.buttonDisabled : {}) }}
-          disabled={busy}
-          onClick={attachResume}
-        >
-          Attach résumé
-        </button>
-      </div>
-      {attachMsg && <div style={{ ...ui.label, marginTop: '0.3rem' }}>{attachMsg}</div>}
-
-      {status.kind === 'not-fillable' && (
-        <div style={{ ...ui.error, color: '#555', marginTop: '0.4rem' }}>
-          Nothing to fill — the active tab is not a Workday application page.
+    <details className="section" open>
+      <summary>
+        Workday page
+        {status.kind === 'planned' && status.fields.length > 0 && (
+          <span className="count">{status.fields.length} field(s)</span>
+        )}
+      </summary>
+      <div className="section-body">
+        <div className="hint">
+          Empty fields fill automatically as they appear. Review here or on the page; “Fill
+          now” re-applies everything.
         </div>
-      )}
 
-      {status.kind === 'planned' && (
-        <div style={{ marginTop: '0.5rem' }}>
-          {status.fields.length === 0 ? (
-            <div style={{ ...ui.error, color: '#555' }}>
-              No matching fields found on this page/step.
-            </div>
+        <div className="row">
+          <button className="btn btn-ghost btn-sm" disabled={busy} onClick={preview}>
+            {busy ? 'Working…' : 'Refresh'}
+          </button>
+          <button className="btn btn-ghost btn-sm" disabled={busy} onClick={attachResume}>
+            Attach résumé
+          </button>
+        </div>
+        {attachMsg && (
+          <div className={attachMsg.ok ? 'text-success' : 'text-warn'}>{attachMsg.text}</div>
+        )}
+
+        {status.kind === 'not-fillable' && (
+          <span className="pill pill-muted">Not a Workday application page</span>
+        )}
+
+        {status.kind === 'planned' &&
+          (status.fields.length === 0 ? (
+            <span className="pill pill-muted">No matching fields on this step</span>
           ) : (
             <>
               {status.fields.map((f) => (
-                <div key={f.selector} style={ui.card}>
-                  <div style={{ fontSize: '0.8rem', fontWeight: 600 }}>{f.label}</div>
-                  <div style={{ fontSize: '0.75rem', color: '#555' }}>
-                    <span style={{ textDecoration: f.currentValue ? 'line-through' : 'none' }}>
-                      {f.currentValue || '(empty)'}
-                    </span>{' '}
-                    → <strong>{f.value}</strong>
+                <div key={f.selector} className="diff-row">
+                  <div className="diff-label">{f.label}</div>
+                  <div className="diff-values">
+                    <span className={f.currentValue ? 'diff-old' : 'diff-old empty'}>
+                      {f.currentValue || 'empty'}
+                    </span>
+                    <span aria-hidden>→</span>
+                    <span className="diff-new">{f.value}</span>
                   </div>
                 </div>
               ))}
-              <button style={ui.button} disabled={busy} onClick={() => fill(status.fields)}>
-                Fill now ({status.fields.length})
-              </button>
-              <div style={{ ...ui.label, marginTop: '0.3rem' }}>
-                “Fill now” overwrites these {status.fields.length} field(s). The form is never
-                submitted for you.
+              <div className="row">
+                <button className="btn btn-primary" disabled={busy} onClick={() => fill(status.fields)}>
+                  Fill now ({status.fields.length})
+                </button>
+              </div>
+              <div className="hint">
+                “Fill now” overwrites these field(s). The form is never submitted for you.
               </div>
             </>
-          )}
-        </div>
-      )}
-
-      {status.kind === 'filled' && (
-        <div style={{ marginTop: '0.5rem', fontSize: '0.8rem' }}>
-          <div style={{ color: '#0a0' }}>Filled {status.result.filled} field(s).</div>
-          {status.result.skipped > 0 && (
-            <div style={{ color: '#b45309' }}>Skipped {status.result.skipped}.</div>
-          )}
-          {status.result.errors.map((e, i) => (
-            <div key={i} style={ui.error}>{e}</div>
           ))}
-        </div>
-      )}
-    </section>
+
+        {status.kind === 'filled' && (
+          <div className="row">
+            <span className="pill pill-success">Filled {status.result.filled}</span>
+            {status.result.skipped > 0 && (
+              <span className="pill pill-warn">Skipped {status.result.skipped}</span>
+            )}
+          </div>
+        )}
+        {status.kind === 'filled' &&
+          status.result.errors.map((e, i) => (
+            <div key={i} className="text-danger">{e}</div>
+          ))}
+      </div>
+    </details>
   );
 }

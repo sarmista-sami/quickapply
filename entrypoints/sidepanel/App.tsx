@@ -7,7 +7,17 @@ import { validateApplicant } from './validation';
 import { Upload } from './components/Upload';
 import { Preview } from './components/Preview';
 import { FillPage } from './components/FillPage';
-import { ui } from './components/fields';
+
+function Logo() {
+  return (
+    <div className="app-logo" aria-hidden>
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+        strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M13 2 3 14h7l-1 8 10-12h-7z" />
+      </svg>
+    </div>
+  );
+}
 
 export function App() {
   const [data, setData] = useState<ApplicantData | null>(null);
@@ -49,48 +59,52 @@ export function App() {
     setSyncWarning(null);
   }
 
-  if (loading) return <main style={ui.page}>Loading…</main>;
-
   return (
-    <main style={ui.page}>
-      <h1 style={ui.h1}>Resume Autofill</h1>
+    <div className="app">
+      <header className="app-header">
+        <Logo />
+        <div>
+          <h1 className="app-title">Resume Autofill</h1>
+          <p className="app-subtitle">Parse once, apply everywhere</p>
+        </div>
+      </header>
 
-      {!data ? (
-        <>
-          <p style={{ color: '#666', fontSize: '0.85rem' }}>
-            Upload a .docx résumé to get started. You review and edit everything before it is saved.
-          </p>
-          <Upload onParsed={setData} />
-        </>
-      ) : (
-        <>
-          <Upload onParsed={setData} label="Replace with another .docx" />
-          <Preview data={data} errors={errors} onChange={setData} />
-          <div style={{ display: 'flex', gap: '0.6rem', alignItems: 'center', marginTop: '0.5rem' }}>
-            <button
-              style={{ ...ui.button, ...(valid ? {} : ui.buttonDisabled) }}
-              disabled={!valid}
-              onClick={save}
-            >
-              Save
-            </button>
-            {!valid && <span style={ui.error}>Fix the highlighted fields to save.</span>}
-            {valid && savedAt && (
-              <span style={{ color: '#0a0', fontSize: '0.75rem' }}>Saved at {savedAt}</span>
-            )}
-          </div>
-          {syncWarning && (
-            <div style={{ ...ui.error, marginTop: '0.4rem', color: '#b45309' }}>{syncWarning}</div>
-          )}
-          <FillPage data={data} />
-          <button
-            style={{ ...ui.ghostButton, marginTop: '0.75rem', color: '#b91c1c' }}
-            onClick={clearAll}
-          >
-            Clear saved data
+      <main className="app-main">
+        {loading ? (
+          <div className="hint">Loading…</div>
+        ) : !data ? (
+          <>
+            <div className="hint">
+              Upload your résumé to get started. Every field is yours to review and edit
+              before anything is saved or filled.
+            </div>
+            <Upload variant="zone" onParsed={setData} />
+          </>
+        ) : (
+          <>
+            <div className="row">
+              <Upload variant="button" onParsed={setData} />
+            </div>
+            <FillPage data={data} />
+            <Preview data={data} errors={errors} onChange={setData} />
+          </>
+        )}
+      </main>
+
+      {data && (
+        <footer className="savebar">
+          <button className="btn btn-primary" disabled={!valid} onClick={save}>
+            Save
           </button>
-        </>
+          {!valid && <span className="text-danger">Fix the highlighted fields to save.</span>}
+          {valid && savedAt && <span className="text-success">Saved at {savedAt}</span>}
+          {syncWarning && <span className="text-warn">{syncWarning}</span>}
+          <span className="spacer" />
+          <button className="btn btn-danger btn-sm" onClick={clearAll}>
+            Clear data
+          </button>
+        </footer>
       )}
-    </main>
+    </div>
   );
 }

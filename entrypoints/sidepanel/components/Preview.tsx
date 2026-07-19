@@ -1,5 +1,5 @@
 import type { ApplicantData, WorkItem, EduItem, Link } from '@/src/types/applicant-data';
-import { TextField, ListTextArea, ui } from './fields';
+import { TextField, ListTextArea } from './fields';
 
 interface PreviewProps {
   data: ApplicantData;
@@ -19,106 +19,137 @@ export function Preview({ data, errors, onChange }: PreviewProps) {
   const removeAt = <T,>(list: T[], i: number): T[] => list.filter((_, idx) => idx !== i);
 
   return (
-    <div>
-      <section style={ui.section}>
-        <h2 style={ui.h2}>Contact</h2>
-        <TextField label="First name" value={data.contact.firstName}
-          error={errors['contact.firstName']} onChange={(v) => patchContact({ firstName: v })} />
-        <TextField label="Last name" value={data.contact.lastName}
-          error={errors['contact.lastName']} onChange={(v) => patchContact({ lastName: v })} />
-        <TextField label="Email" value={data.contact.email}
-          error={errors['contact.email']} onChange={(v) => patchContact({ email: v })} />
-        <TextField label="Phone" value={data.contact.phone ?? ''}
-          error={errors['contact.phone']} onChange={(v) => patchContact({ phone: v || undefined })} />
-        <TextField label="Location" value={data.contact.location ?? ''}
-          onChange={(v) => patchContact({ location: v || undefined })} />
-      </section>
+    <div className="stack">
+      <details className="section" open>
+        <summary>Contact</summary>
+        <div className="section-body">
+          <TextField label="First name" value={data.contact.firstName}
+            error={errors['contact.firstName']} onChange={(v) => patchContact({ firstName: v })} />
+          <TextField label="Last name" value={data.contact.lastName}
+            error={errors['contact.lastName']} onChange={(v) => patchContact({ lastName: v })} />
+          <TextField label="Email" value={data.contact.email}
+            error={errors['contact.email']} onChange={(v) => patchContact({ email: v })} />
+          <TextField label="Phone" value={data.contact.phone ?? ''}
+            error={errors['contact.phone']} onChange={(v) => patchContact({ phone: v || undefined })} />
+          <TextField label="Location" value={data.contact.location ?? ''}
+            onChange={(v) => patchContact({ location: v || undefined })} />
+        </div>
+      </details>
 
-      <section style={ui.section}>
-        <h2 style={ui.h2}>Address</h2>
-        <TextField label="Line 1" value={data.contact.address?.line1 ?? ''}
-          onChange={(v) => patchAddress({ line1: v || undefined })} />
-        <TextField label="Line 2" value={data.contact.address?.line2 ?? ''}
-          onChange={(v) => patchAddress({ line2: v || undefined })} />
-        <TextField label="City" value={data.contact.address?.city ?? ''}
-          onChange={(v) => patchAddress({ city: v || undefined })} />
-        <TextField label="State / Province" value={data.contact.address?.state ?? ''}
-          onChange={(v) => patchAddress({ state: v || undefined })} />
-        <TextField label="Postal code" value={data.contact.address?.postalCode ?? ''}
-          onChange={(v) => patchAddress({ postalCode: v || undefined })} />
-        <TextField label="Country" value={data.contact.address?.country ?? ''}
-          onChange={(v) => patchAddress({ country: v || undefined })} />
-      </section>
+      <details className="section" open>
+        <summary>Address</summary>
+        <div className="section-body">
+          <TextField label="Line 1" value={data.contact.address?.line1 ?? ''}
+            onChange={(v) => patchAddress({ line1: v || undefined })} />
+          <TextField label="Line 2" value={data.contact.address?.line2 ?? ''}
+            onChange={(v) => patchAddress({ line2: v || undefined })} />
+          <TextField label="City" value={data.contact.address?.city ?? ''}
+            onChange={(v) => patchAddress({ city: v || undefined })} />
+          <TextField label="State / Province" value={data.contact.address?.state ?? ''}
+            onChange={(v) => patchAddress({ state: v || undefined })} />
+          <TextField label="Postal code" value={data.contact.address?.postalCode ?? ''}
+            onChange={(v) => patchAddress({ postalCode: v || undefined })} />
+          <TextField label="Country" value={data.contact.address?.country ?? ''}
+            onChange={(v) => patchAddress({ country: v || undefined })} />
+        </div>
+      </details>
 
-      <section style={ui.section}>
-        <h2 style={ui.h2}>Work</h2>
-        {data.work.map((w, i) => (
-          <div key={i} style={ui.card}>
-            <TextField label="Company" value={w.company} error={errors[`work.${i}.company`]}
-              onChange={(v) => patch({ work: updateAt(data.work, i, { company: v }) })} />
-            <TextField label="Title" value={w.title} error={errors[`work.${i}.title`]}
-              onChange={(v) => patch({ work: updateAt(data.work, i, { title: v }) })} />
-            <TextField label="Start" value={w.startDate} error={errors[`work.${i}.startDate`]}
-              placeholder="YYYY-MM"
-              onChange={(v) => patch({ work: updateAt(data.work, i, { startDate: v }) })} />
-            <TextField label="End" value={w.endDate ?? ''} placeholder="YYYY-MM or blank"
-              onChange={(v) => patch({ work: updateAt(data.work, i, { endDate: v || undefined }) })} />
-            <label style={{ ...ui.label, display: 'flex', gap: '0.35rem', alignItems: 'center' }}>
-              <input type="checkbox" checked={w.current}
-                onChange={(e) => patch({ work: updateAt(data.work, i, { current: e.target.checked }) })} />
-              Current role
-            </label>
-            <ListTextArea label="Bullets (one per line)" values={w.bullets} separator="lines"
-              minHeight="3rem"
-              onChange={(bullets) => patch({ work: updateAt(data.work, i, { bullets }) })} />
-            <button style={{ ...ui.ghostButton, marginTop: '0.4rem' }}
-              onClick={() => patch({ work: removeAt(data.work, i) })}>Remove</button>
+      <details className="section" open>
+        <summary>
+          Work experience <span className="count">{data.work.length}</span>
+        </summary>
+        <div className="section-body">
+          {data.work.map((w, i) => (
+            <div key={i} className="entry-card">
+              <TextField label="Company" value={w.company} error={errors[`work.${i}.company`]}
+                onChange={(v) => patch({ work: updateAt(data.work, i, { company: v }) })} />
+              <TextField label="Title" value={w.title} error={errors[`work.${i}.title`]}
+                onChange={(v) => patch({ work: updateAt(data.work, i, { title: v }) })} />
+              <TextField label="Start" value={w.startDate} error={errors[`work.${i}.startDate`]}
+                placeholder="YYYY-MM"
+                onChange={(v) => patch({ work: updateAt(data.work, i, { startDate: v }) })} />
+              <TextField label="End" value={w.endDate ?? ''} placeholder="YYYY-MM or blank"
+                onChange={(v) => patch({ work: updateAt(data.work, i, { endDate: v || undefined }) })} />
+              <label className="checkbox-row">
+                <input type="checkbox" checked={w.current}
+                  onChange={(e) => patch({ work: updateAt(data.work, i, { current: e.target.checked }) })} />
+                Current role
+              </label>
+              <ListTextArea label="Bullets (one per line)" values={w.bullets} separator="lines"
+                minHeight="3rem"
+                onChange={(bullets) => patch({ work: updateAt(data.work, i, { bullets }) })} />
+              <div>
+                <button className="btn btn-danger btn-sm"
+                  onClick={() => patch({ work: removeAt(data.work, i) })}>Remove</button>
+              </div>
+            </div>
+          ))}
+          <div>
+            <button className="btn btn-ghost btn-sm"
+              onClick={() => patch({ work: [...data.work, emptyWork()] })}>+ Add work</button>
           </div>
-        ))}
-        <button style={ui.ghostButton} onClick={() => patch({ work: [...data.work, emptyWork()] })}>
-          + Add work
-        </button>
-      </section>
+        </div>
+      </details>
 
-      <section style={ui.section}>
-        <h2 style={ui.h2}>Education</h2>
-        {data.education.map((ed, i) => (
-          <div key={i} style={ui.card}>
-            <TextField label="School" value={ed.school} error={errors[`education.${i}.school`]}
-              onChange={(v) => patch({ education: updateAt(data.education, i, { school: v }) })} />
-            <TextField label="Degree" value={ed.degree ?? ''}
-              onChange={(v) => patch({ education: updateAt(data.education, i, { degree: v || undefined }) })} />
-            <TextField label="Field" value={ed.field ?? ''}
-              onChange={(v) => patch({ education: updateAt(data.education, i, { field: v || undefined }) })} />
-            <button style={{ ...ui.ghostButton, marginTop: '0.4rem' }}
-              onClick={() => patch({ education: removeAt(data.education, i) })}>Remove</button>
+      <details className="section" open>
+        <summary>
+          Education <span className="count">{data.education.length}</span>
+        </summary>
+        <div className="section-body">
+          {data.education.map((ed, i) => (
+            <div key={i} className="entry-card">
+              <TextField label="School" value={ed.school} error={errors[`education.${i}.school`]}
+                onChange={(v) => patch({ education: updateAt(data.education, i, { school: v }) })} />
+              <TextField label="Degree" value={ed.degree ?? ''}
+                onChange={(v) => patch({ education: updateAt(data.education, i, { degree: v || undefined }) })} />
+              <TextField label="Field" value={ed.field ?? ''}
+                onChange={(v) => patch({ education: updateAt(data.education, i, { field: v || undefined }) })} />
+              <div>
+                <button className="btn btn-danger btn-sm"
+                  onClick={() => patch({ education: removeAt(data.education, i) })}>Remove</button>
+              </div>
+            </div>
+          ))}
+          <div>
+            <button className="btn btn-ghost btn-sm"
+              onClick={() => patch({ education: [...data.education, emptyEdu()] })}>+ Add education</button>
           </div>
-        ))}
-        <button style={ui.ghostButton}
-          onClick={() => patch({ education: [...data.education, emptyEdu()] })}>+ Add education</button>
-      </section>
+        </div>
+      </details>
 
-      <section style={ui.section}>
-        <h2 style={ui.h2}>Skills (comma-separated)</h2>
-        <ListTextArea values={data.skills} separator="comma"
-          onChange={(skills) => patch({ skills })} />
-      </section>
+      <details className="section" open>
+        <summary>
+          Skills <span className="count">{data.skills.length}</span>
+        </summary>
+        <div className="section-body">
+          <ListTextArea label="Comma-separated" values={data.skills} separator="comma"
+            onChange={(skills) => patch({ skills })} />
+        </div>
+      </details>
 
-      <section style={ui.section}>
-        <h2 style={ui.h2}>Links</h2>
-        {data.links.map((ln, i) => (
-          <div key={i} style={ui.card}>
-            <TextField label="Label" value={ln.label} error={errors[`links.${i}.label`]}
-              onChange={(v) => patch({ links: updateAt(data.links, i, { label: v }) })} />
-            <TextField label="URL" value={ln.url} error={errors[`links.${i}.url`]}
-              onChange={(v) => patch({ links: updateAt(data.links, i, { url: v }) })} />
-            <button style={{ ...ui.ghostButton, marginTop: '0.4rem' }}
-              onClick={() => patch({ links: removeAt(data.links, i) })}>Remove</button>
+      <details className="section" open>
+        <summary>
+          Links <span className="count">{data.links.length}</span>
+        </summary>
+        <div className="section-body">
+          {data.links.map((ln, i) => (
+            <div key={i} className="entry-card">
+              <TextField label="Label" value={ln.label} error={errors[`links.${i}.label`]}
+                onChange={(v) => patch({ links: updateAt(data.links, i, { label: v }) })} />
+              <TextField label="URL" value={ln.url} error={errors[`links.${i}.url`]}
+                onChange={(v) => patch({ links: updateAt(data.links, i, { url: v }) })} />
+              <div>
+                <button className="btn btn-danger btn-sm"
+                  onClick={() => patch({ links: removeAt(data.links, i) })}>Remove</button>
+              </div>
+            </div>
+          ))}
+          <div>
+            <button className="btn btn-ghost btn-sm"
+              onClick={() => patch({ links: [...data.links, emptyLink()] })}>+ Add link</button>
           </div>
-        ))}
-        <button style={ui.ghostButton}
-          onClick={() => patch({ links: [...data.links, emptyLink()] })}>+ Add link</button>
-      </section>
+        </div>
+      </details>
     </div>
   );
 }
