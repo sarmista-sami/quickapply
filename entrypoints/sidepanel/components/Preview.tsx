@@ -1,5 +1,5 @@
 import type { ApplicantData, WorkItem, EduItem, Link } from '@/src/types/applicant-data';
-import { TextField, ui } from './fields';
+import { TextField, ListTextArea, ui } from './fields';
 
 interface PreviewProps {
   data: ApplicantData;
@@ -68,10 +68,9 @@ export function Preview({ data, errors, onChange }: PreviewProps) {
                 onChange={(e) => patch({ work: updateAt(data.work, i, { current: e.target.checked }) })} />
               Current role
             </label>
-            <label style={ui.label}>Bullets (one per line)</label>
-            <textarea style={{ ...ui.input, minHeight: '3rem' }} value={w.bullets.join('\n')}
-              onChange={(e) =>
-                patch({ work: updateAt(data.work, i, { bullets: splitLines(e.target.value) }) })} />
+            <ListTextArea label="Bullets (one per line)" values={w.bullets} separator="lines"
+              minHeight="3rem"
+              onChange={(bullets) => patch({ work: updateAt(data.work, i, { bullets }) })} />
             <button style={{ ...ui.ghostButton, marginTop: '0.4rem' }}
               onClick={() => patch({ work: removeAt(data.work, i) })}>Remove</button>
           </div>
@@ -101,8 +100,8 @@ export function Preview({ data, errors, onChange }: PreviewProps) {
 
       <section style={ui.section}>
         <h2 style={ui.h2}>Skills (comma-separated)</h2>
-        <textarea style={{ ...ui.input, minHeight: '2.5rem' }} value={data.skills.join(', ')}
-          onChange={(e) => patch({ skills: splitCommas(e.target.value) })} />
+        <ListTextArea values={data.skills} separator="comma"
+          onChange={(skills) => patch({ skills })} />
       </section>
 
       <section style={ui.section}>
@@ -124,12 +123,6 @@ export function Preview({ data, errors, onChange }: PreviewProps) {
   );
 }
 
-function splitLines(v: string): string[] {
-  return v.split(/\n/).map((s) => s.trim()).filter((s) => s.length > 0);
-}
-function splitCommas(v: string): string[] {
-  return v.split(',').map((s) => s.trim()).filter((s) => s.length > 0);
-}
 function emptyWork(): WorkItem {
   return { company: '', title: '', startDate: '', current: false, bullets: [] };
 }

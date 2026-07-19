@@ -34,6 +34,11 @@ describe('parse — reliable fields', () => {
     expect(kinds).toContain('github');
   });
 
+  it('does not surface the email domain as a link', () => {
+    const urls = raw.fields.links.map((l) => l.url);
+    expect(urls.some((u) => u.includes('example.com'))).toBe(false);
+  });
+
   it('guesses the name from the top line', () => {
     expect(raw.fields.name).toBe('Ada Lovelace');
   });

@@ -10,10 +10,6 @@ export async function extractDocxText(buffer: ArrayBuffer): Promise<string> {
   return value;
 }
 
-const DOCX_EXT = /\.docx$/i;
-const DOCX_MIME = 'application/vnd.openxmlformats-officedocument.wordprocessingml.document';
-
-/** Whether a picked file looks like a docx we can extract. */
-export function isDocx(file: File): boolean {
-  return file.type === DOCX_MIME || DOCX_EXT.test(file.name);
-}
+// Format sniffing lives in the light guards module (no heavy deps); re-exported here
+// for convenience/compatibility.
+export { isDocx } from '@/src/parsers/guards';

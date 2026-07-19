@@ -51,8 +51,8 @@ test('fills checkbox, dropdown, multiselect, and date; never submits', async ({ 
   const chips = await page.locator('[data-automation-id="formField-skills"] [data-automation-id="selectedItem"]').allTextContents();
   expect(chips).toEqual(['Algorithms', 'Calculus']);
 
-  // Date sections written via native setter (1842-06 → month 6, year 1842).
-  expect(await page.inputValue('[data-automation-id="dateSectionMonth-input"]')).toBe('6');
+  // Date sections written via native setter (1842-06 → month 06 zero-padded, year 1842).
+  expect(await page.inputValue('[data-automation-id="dateSectionMonth-input"]')).toBe('06');
   expect(await page.inputValue('[data-automation-id="dateSectionYear-input"]')).toBe('1842');
 
   // Result and no-submit.

@@ -25,8 +25,6 @@ export async function extractPdfText(buffer: ArrayBuffer): Promise<string> {
   return pages.join('\n');
 }
 
-const PDF_EXT = /\.pdf$/i;
-
-export function isPdf(file: File): boolean {
-  return file.type === 'application/pdf' || PDF_EXT.test(file.name);
-}
+// Format sniffing lives in the light guards module (no heavy deps); re-exported here
+// for convenience/compatibility.
+export { isPdf } from '@/src/parsers/guards';

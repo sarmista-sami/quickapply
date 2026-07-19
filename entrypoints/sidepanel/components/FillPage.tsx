@@ -40,11 +40,11 @@ export function FillPage({ data }: FillPageProps) {
     }
   }
 
-  // Auto-review on open: the content script auto-fills empty fields on the page; this shows
-  // what's mapped for the active tab so the user can review.
+  // Auto-review on open (and whenever the applicant data changes): the content script
+  // auto-fills empty fields on the page; this shows what's mapped so the user can review.
   useEffect(() => {
     void preview();
-  }, []);
+  }, [data]);
 
   async function fill(fields: FieldFill[]) {
     setBusy(true);

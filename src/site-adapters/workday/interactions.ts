@@ -102,10 +102,12 @@ interface DateParts {
 }
 
 export function parseDate(value: string): DateParts {
+  // Month is zero-padded — Workday's MM section expects two digits.
+  const pad = (m: string) => String(Number(m)).padStart(2, '0');
   const ym = value.match(/(\d{4})[-/](\d{1,2})/);
-  if (ym) return { year: ym[1], month: String(Number(ym[2])) };
+  if (ym) return { year: ym[1], month: pad(ym[2]!) };
   const my = value.match(/(\d{1,2})[-/](\d{4})/);
-  if (my) return { year: my[2], month: String(Number(my[1])) };
+  if (my) return { year: my[2], month: pad(my[1]!) };
   const y = value.match(/(\d{4})/);
   if (y) return { year: y[1] };
   return {};

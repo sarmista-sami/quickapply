@@ -34,6 +34,7 @@ export function parse(text: string, meta: ParseMeta): RawResume {
 // --- Reliable field detection ------------------------------------------------
 
 const EMAIL_RE = /\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}\b/;
+const EMAIL_RE_GLOBAL = new RegExp(EMAIL_RE.source, 'g');
 const URL_RE = /\b((?:https?:\/\/)?(?:www\.)?[A-Za-z0-9-]+\.[A-Za-z]{2,}(?:\/[^\s)]*)?)/g;
 const PHONE_CANDIDATE_RE = /\+?[\d][\d\s().-]{7,}\d/g;
 
@@ -42,7 +43,9 @@ export function detectFields(lines: string[]): DetectedFields {
 
   const email = joined.match(EMAIL_RE)?.[0];
   const phone = detectPhone(joined);
-  const links = detectLinks(joined);
+  // Strip emails first, or the URL detector would surface the domain inside an address
+  // (ada@example.com → https://example.com) as a bogus link.
+  const links = detectLinks(joined.replace(EMAIL_RE_GLOBAL, ' '));
   const name = detectName(lines, email, phone);
 
   return { name, email, phone, links };

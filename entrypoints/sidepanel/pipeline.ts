@@ -24,17 +24,21 @@ export async function parseResumeFile(file: File): Promise<ApplicantData> {
 }
 
 async function extractText(file: File): Promise<{ text: string; kind: 'docx' | 'pdf' }> {
-  const buffer = await file.arrayBuffer();
+  // Sniff the format with the light guards first, so only the matching heavy extractor
+  // chunk (mammoth or pdf.js) is ever fetched.
+  const { isDocx, isPdf } = await import('@/src/parsers/guards');
 
-  const docx = await import('@/src/parsers/docx/extract');
-  if (docx.isDocx(file)) return { text: await docx.extractDocxText(buffer), kind: 'docx' };
+  if (isDocx(file)) {
+    const { extractDocxText } = await import('@/src/parsers/docx/extract');
+    return { text: await extractDocxText(await file.arrayBuffer()), kind: 'docx' };
+  }
 
-  const pdf = await import('@/src/parsers/pdf/extract');
-  if (pdf.isPdf(file)) {
+  if (isPdf(file)) {
+    const pdf = await import('@/src/parsers/pdf/extract');
     // Configure the bundled pdf.js worker before extracting (browser only).
     const workerUrl = (await import('pdfjs-dist/build/pdf.worker.min.mjs?url')).default;
     pdf.configureWorker(workerUrl);
-    return { text: await pdf.extractPdfText(buffer), kind: 'pdf' };
+    return { text: await pdf.extractPdfText(await file.arrayBuffer()), kind: 'pdf' };
   }
 
   throw new UnsupportedFormatError();

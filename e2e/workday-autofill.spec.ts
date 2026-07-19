@@ -5,6 +5,7 @@ import { dirname, join } from 'node:path';
 
 const here = dirname(fileURLToPath(import.meta.url));
 const fixture = readFileSync(join(here, 'fixtures/workday-form.html'), 'utf8');
+const widgetsFixture = readFileSync(join(here, 'fixtures/workday-widgets.html'), 'utf8');
 const bundle = readFileSync(join(here, '.tmp/workday-adapter.js'), 'utf8');
 
 const DATA = {
@@ -48,4 +49,60 @@ test('auto-fills empty fields but never overwrites existing input; no submit', a
   }, DATA);
   expect(second.filled).toBe(0);
   expect(await page.evaluate(() => (window as any).__submitted)).toBe(false);
+});
+
+const WIDGET_DATA = {
+  contact: {
+    firstName: 'Ada',
+    lastName: 'Lovelace',
+    email: 'ada@example.com',
+    address: { city: 'Amsterdam', country: 'Netherlands' },
+  },
+  work: [{ company: 'Analytical Engines', title: 'Mathematician', startDate: '1842-06', current: true, bullets: [] }],
+  education: [{ school: 'University of London', degree: 'Bachelor of Science' }],
+  skills: ['Algorithms'],
+  links: [],
+  extra: {},
+};
+
+test('filled dropdown/multiselect/date are NOT re-filled on a second pass (loop guard)', async ({ page }) => {
+  await page.setContent(widgetsFixture);
+  await page.addScriptTag({ content: bundle });
+
+  const first = await page.evaluate(async (d) => {
+    const adapter = new (window as any).WorkdayAdapter();
+    return (window as any).autofillEmpty(adapter, d);
+  }, WIDGET_DATA);
+  expect(first.filled).toBeGreaterThanOrEqual(4); // degree, country, city, skills, date
+
+  // Everything now reports a current value → second pass touches nothing.
+  const second = await page.evaluate(async (d) => {
+    const adapter = new (window as any).WorkdayAdapter();
+    return (window as any).autofillEmpty(adapter, d);
+  }, WIDGET_DATA);
+  expect(second.filled).toBe(0);
+  expect(second.skipped).toBe(0);
+
+  // Dropdown listbox was not reopened by the second pass.
+  const portalOptions = await page.locator('#wd-portal [data-automation-id="promptOption"]').count();
+  expect(portalOptions).toBe(0);
+  expect(await page.evaluate(() => (window as any).__submitted)).toBe(false);
+});
+
+test('unmatchable dropdown value is attempted once per step (attempted set)', async ({ page }) => {
+  await page.setContent(widgetsFixture);
+  await page.addScriptTag({ content: bundle });
+
+  const results = await page.evaluate(async (d) => {
+    const adapter = new (window as any).WorkdayAdapter();
+    const data = { ...d, education: [{ school: 'X', degree: 'Nonexistent Degree' }], skills: [], contact: { ...d.contact, address: undefined }, work: [] };
+    const attempted = new Set<string>();
+    const first = await (window as any).autofillEmpty(adapter, data, attempted);
+    const second = await (window as any).autofillEmpty(adapter, data, attempted);
+    return { first, second };
+  }, WIDGET_DATA);
+
+  expect(results.first.skipped).toBeGreaterThanOrEqual(1); // tried and failed once
+  expect(results.second.filled).toBe(0);
+  expect(results.second.skipped).toBe(0); // filtered by the attempted set — no retry
 });

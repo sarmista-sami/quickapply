@@ -21,13 +21,34 @@ export default defineContentScript({
 
     // --- Auto-fill on detection ---------------------------------------------
     if (adapter.matches(location.href)) {
-      const data = await new SyncedStorageAdapter().load().catch(() => null);
-      if (data) startAutofill(adapter, data);
+      const storage = new SyncedStorageAdapter();
+      const runner = createAutofillRunner(adapter, await storage.load().catch(() => null));
+      // Panel edits mid-application (multi-step SPA): reload data and refill.
+      chrome.storage.onChanged.addListener(() => {
+        storage
+          .load()
+          .then((data) => runner.setData(data))
+          .catch(() => {});
+      });
     }
 
     chrome.runtime.onMessage.addListener((message: PanelToContent, _sender, sendResponse) => {
       if (!adapter.matches(location.href)) {
-        sendResponse({ type: 'plan-response', fields: [] } satisfies PlanResponse);
+        // Typed per-request error responses so the panel never misparses the shape.
+        if (message.type === 'plan-request') {
+          sendResponse({ type: 'plan-response', fields: [] } satisfies PlanResponse);
+        } else if (message.type === 'fill-request') {
+          sendResponse({
+            type: 'fill-response',
+            result: { filled: 0, skipped: message.fields.length, errors: ['Not a Workday page'] },
+          } satisfies FillResponse);
+        } else {
+          sendResponse({
+            type: 'upload-resume-response',
+            ok: false,
+            error: 'Not a Workday page',
+          } satisfies UploadResumeResponse);
+        }
         return false;
       }
 
@@ -65,19 +86,27 @@ export default defineContentScript({
 });
 
 /**
- * Run an empty-only autofill pass now, then again (debounced) whenever the page mutates,
- * so lazily rendered and multi-step fields get filled. Empty-only keeps it idempotent —
- * filled fields are skipped next pass, so the fill's own events don't cause a loop.
+ * Debounced autofill runner. Fills empty fields now and on page mutations. Owns the
+ * attempted-set (one try per field/value per step) and resets it when the SPA URL
+ * changes (Workday steps navigate without a reload). Empty-only + attempted-set keep it
+ * idempotent: no clobbering, no loops.
  */
-function startAutofill(adapter: WorkdayAdapter, data: ApplicantData): void {
+function createAutofillRunner(adapter: WorkdayAdapter, initial: ApplicantData | null) {
+  let data = initial;
   let timer: ReturnType<typeof setTimeout> | undefined;
   let running = false;
+  let lastHref = location.href;
+  const attempted = new Set<string>();
 
   const run = async () => {
-    if (running) return;
+    if (!data || running) return;
     running = true;
     try {
-      await autofillEmpty(adapter, data);
+      if (location.href !== lastHref) {
+        lastHref = location.href;
+        attempted.clear(); // new step — fields may legitimately repeat
+      }
+      await autofillEmpty(adapter, data, attempted);
     } catch {
       /* best-effort */
     } finally {
@@ -92,4 +121,12 @@ function startAutofill(adapter: WorkdayAdapter, data: ApplicantData): void {
     timer = setTimeout(() => void run(), 400);
   });
   observer.observe(document.body, { childList: true, subtree: true });
+
+  return {
+    setData(next: ApplicantData | null) {
+      data = next;
+      attempted.clear(); // data changed — previously attempted values may now differ
+      void run();
+    },
+  };
 }

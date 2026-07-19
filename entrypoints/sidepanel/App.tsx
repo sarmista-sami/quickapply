@@ -46,6 +46,7 @@ export function App() {
     await Promise.all([storage.clear(), new ResumeFileStore().clear()]);
     setData(null);
     setSavedAt(null);
+    setSyncWarning(null);
   }
 
   if (loading) return <main style={ui.page}>Loading…</main>;

@@ -93,8 +93,16 @@ export class WorkdayAdapter implements SiteAdapter {
   }
 }
 
+/** Placeholder-ish dropdown captions that mean "nothing selected yet". */
+const DROPDOWN_PLACEHOLDER = /^(select( one)?)?$/i;
+
+/**
+ * Read the field's current value, returning `''` (not undefined) when the control exists
+ * but is empty. The empty-only autofill relies on this: a filled field of ANY kind must
+ * report a non-empty value or the MutationObserver pass would re-fill it forever.
+ */
 function currentValueOf(resolved: ResolvedField): string | undefined {
-  const { field } = resolved;
+  const { field, selector } = resolved;
   if (field.kind === 'text' || field.kind === 'textarea') {
     const el = findInput(controlSelector(field));
     return el ? readValue(el) : undefined;
@@ -102,6 +110,24 @@ function currentValueOf(resolved: ResolvedField): string | undefined {
   if (field.kind === 'checkbox') {
     const el = document.querySelector<HTMLInputElement>(controlSelector(field));
     return el ? (el.checked ? 'Yes' : 'No') : undefined;
+  }
+  if (field.kind === 'dropdown') {
+    const button = document.querySelector<HTMLElement>(`${selector} button`);
+    if (!button) return undefined;
+    const text = (button.textContent ?? '').trim();
+    return DROPDOWN_PLACEHOLDER.test(text) ? '' : text;
+  }
+  if (field.kind === 'multiselect') {
+    const chips = Array.from(
+      document.querySelectorAll<HTMLElement>(`${selector} [data-automation-id="selectedItem"]`),
+    );
+    return chips.map((c) => (c.textContent ?? '').trim()).filter(Boolean).join(', ');
+  }
+  if (field.kind === 'date') {
+    const year = document.querySelector<HTMLInputElement>(
+      `${selector} [data-automation-id="dateSectionYear-input"]`,
+    );
+    return year ? year.value.trim() : undefined;
   }
   return undefined;
 }

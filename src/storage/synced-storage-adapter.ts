@@ -8,7 +8,9 @@ import { LocalStorageAdapter } from '@/src/storage/local-storage-adapter';
 // by sync's ~100 KB quota; if a write exceeds it, local keeps the data and we warn.
 const META_KEY = 'applicant_meta';
 const CHUNK_PREFIX = 'applicant_';
-const CHUNK_SIZE = 6000;
+// Sync's QUOTA_BYTES_PER_ITEM (~8 KB) counts the JSON-serialized value; escaping (quotes,
+// backslashes, non-ASCII) can inflate a chunk well past its char count, so keep headroom.
+const CHUNK_SIZE = 3500;
 
 interface ChunkMeta {
   count: number;
