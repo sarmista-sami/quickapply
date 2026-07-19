@@ -57,13 +57,24 @@ change, waiting for async-loaded fields up to a timeout, and MUST NOT submit the
 - **THEN** no submit/continue button has been activated
 
 ### Requirement: Preview-before-fill from the side panel
-The side panel SHALL let the user preview the planned fills for the active Workday tab
-and then apply them, communicating with the content script via the message protocol.
+The extension SHALL fill mapped fields automatically when they are detected on a Workday
+page, filling only fields that are currently empty so user input is never overwritten, and
+MUST NOT submit or advance the form. The side panel SHALL show the current plan as a review
+(current vs new value) and offer a manual "fill now" re-trigger.
 
-#### Scenario: Preview then fill
-- **WHEN** the user requests a preview on a Workday tab
-- **THEN** the panel shows each planned field with its current and new value
-- **AND** applying the fill sends a fill request and shows the resulting counts
+#### Scenario: Auto-fill on detection
+- **WHEN** a Workday page with mapped empty fields is present and stored `ApplicantData` exists
+- **THEN** those fields are filled automatically without a required preview step
+- **AND** no submit or continue control is activated
+
+#### Scenario: Existing user input is preserved
+- **WHEN** a mapped field already has a value
+- **THEN** auto-fill skips it and does not overwrite it
+
+#### Scenario: Panel review and manual refill
+- **WHEN** the user opens the panel on a Workday tab
+- **THEN** it shows each mapped field's current and new value
+- **AND** a manual "fill now" action re-applies the fills
 
 #### Scenario: Non-Workday tab
 - **WHEN** the active tab is not a Workday page
