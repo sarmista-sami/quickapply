@@ -10,8 +10,10 @@ pre-fills job-application forms — starting with **Workday**.
 2. **Parse + normalize** it into a website-agnostic `ApplicantData` model.
 3. **Review & edit** every field in the side panel (inline validation).
 4. **Save** — fields roam to your other devices via `chrome.storage.sync`.
-5. **Pre-fill** a Workday application: preview what will be filled, then fill (text,
-   dropdowns, multiselect, dates, checkboxes) and attach the résumé file. **Never submits.**
+5. **Auto-fill** a Workday application: as fields appear (on load and across steps), the
+   extension fills empty ones — text, dropdowns, multiselect, dates, checkboxes — without
+   overwriting what you typed. Review in the panel/page; "Fill now" re-applies; attach the
+   résumé file with one click. **Never submits.**
 
 ## Architecture (4 layers)
 
