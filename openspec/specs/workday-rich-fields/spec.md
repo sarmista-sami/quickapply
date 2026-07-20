@@ -27,12 +27,21 @@ case-insensitive equality and falling back to a contains match.
 
 ### Requirement: Fill multiselect fields
 The adapter SHALL fill Workday multiselect fields (e.g. `skills`) by adding each source
-value that matches an available option, accumulating selections, and reporting values with
-no matching option as skipped.
+value that the widget accepts — clicking a matching option when one appears, otherwise
+pressing Enter to commit the highlighted suggestion — and SHALL confirm each addition by
+detecting a new selected chip, reporting values that produced no chip as skipped.
+
+#### Scenario: Value committed via Enter
+- **WHEN** a typed skill matches a suggestion that only commits on Enter
+- **THEN** the adapter presses Enter and a selected chip is added
 
 #### Scenario: Multiple values added
-- **WHEN** the source lists several skills that exist as options
-- **THEN** each matching skill is added as a selected chip
+- **WHEN** the source lists several skills the widget accepts
+- **THEN** each is added as a selected chip
+
+#### Scenario: Unavailable value reported
+- **WHEN** a typed skill never produces a chip
+- **THEN** it is reported as skipped
 
 ### Requirement: Fill date fields
 The adapter SHALL fill Workday date fields (e.g. work start/end) by writing the month and
