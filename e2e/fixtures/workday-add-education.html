@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Workday education Add (fixture)</title>
+  </head>
+  <body>
+    <div data-automation-id="applyFlowMyExperiencePage">
+      <!-- Work section already shows one entry (Workday default). -->
+      <section>
+        <h3>Work Experience</h3>
+        <div data-automation-id="formField-jobTitle"><input name="jobTitle" type="text" /></div>
+      </section>
+
+      <!-- Education section: fields absent until "Add" is clicked. -->
+      <section id="edu-section">
+        <h3>Education</h3>
+        <button data-automation-id="add-button" type="button">Add</button>
+      </section>
+    </div>
+    <button data-automation-id="pageFooterNextButton" type="button">Save and Continue</button>
+
+    <script>
+      const DEGREES = ['Bachelor of Science', 'Master of Science', 'PhD'];
+      let eduAdds = 0;
+      const eduSection = document.getElementById('edu-section');
+
+      eduSection.querySelector('[data-automation-id="add-button"]').addEventListener('click', () => {
+        eduAdds += 1;
+        window.__eduAdds = eduAdds;
+        if (eduSection.querySelector('[data-automation-id="formField-degree"]')) return; // already added
+        // Reveal a degree dropdown (button + portal options), like real Workday.
+        const wrap = document.createElement('div');
+        wrap.setAttribute('data-automation-id', 'formField-degree');
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.textContent = 'Select One';
+        btn.addEventListener('click', () => {
+          const p = document.getElementById('wd-portal') ?? document.body.appendChild(Object.assign(document.createElement('div'), { id: 'wd-portal' }));
+          p.innerHTML = '';
+          for (const t of DEGREES) {
+            const o = document.createElement('div');
+            o.setAttribute('data-automation-id', 'promptOption');
+            o.textContent = t;
+            o.addEventListener('click', () => {
+              btn.textContent = t;
+              btn.dataset.selected = t;
+              p.innerHTML = '';
+            });
+            p.appendChild(o);
+          }
+        });
+        wrap.appendChild(btn);
+        eduSection.appendChild(wrap);
+      });
+
+      window.__eduAdds = 0;
+      window.__submitted = false;
+      document
+        .querySelector('[data-automation-id="pageFooterNextButton"]')
+        .addEventListener('click', () => (window.__submitted = true));
+    </script>
+  </body>
+</html>

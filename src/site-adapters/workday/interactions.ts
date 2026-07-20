@@ -1,4 +1,4 @@
-import { setNativeValue, waitForField } from '@/src/site-adapters/workday/dom';
+import { setNativeValue, waitForField, pressEnter } from '@/src/site-adapters/workday/dom';
 
 /**
  * Edge DOM interaction strategies for Workday's non-text widgets. All are best-effort and
@@ -72,6 +72,16 @@ export async function selectDropdown(wrapperSel: string, value: string): Promise
   return true;
 }
 
+/** Poll a predicate until true or timeout. */
+async function waitUntil(pred: () => boolean, timeout = 1000, interval = 80): Promise<boolean> {
+  const deadline = Date.now() + timeout;
+  for (;;) {
+    if (pred()) return true;
+    if (Date.now() >= deadline) return false;
+    await wait(interval);
+  }
+}
+
 export async function selectMultiple(
   wrapperSel: string,
   values: string[],
@@ -80,20 +90,63 @@ export async function selectMultiple(
   const skipped: string[] = [];
   let added = 0;
   if (!input) return { added, skipped: values };
+
+  const chipCount = () =>
+    document.querySelectorAll(`${wrapperSel} [data-automation-id="selectedItem"]`).length;
+
   for (const value of values) {
+    const before = chipCount();
     input.focus();
-    setNativeValue(input, value);
-    const option = await waitForOption(value);
-    if (option) {
+    setNativeValue(input, value); // input event triggers the typeahead search
+
+    // Let the suggestion list render, then commit with Enter — Workday's prompt accepts
+    // the highlighted option on Enter, and a plain option click often does NOT register.
+    const option = await waitForOption(value, 1000);
+    pressEnter(input);
+    let ok = await waitUntil(() => chipCount() > before, 800);
+
+    // Fallback: click the matched option if Enter didn't add a chip.
+    if (!ok && option) {
       option.click();
-      added += 1;
-      setNativeValue(input, '');
-      await wait(120);
-    } else {
-      skipped.push(value);
+      ok = await waitUntil(() => chipCount() > before, 600);
     }
+
+    if (ok) added += 1;
+    else skipped.push(value);
+
+    setNativeValue(input, ''); // clear for the next value (Workday usually auto-clears)
+    await wait(100);
   }
   return { added, skipped };
+}
+
+/**
+ * Click a repeatable section's "Add" button, identified by a heading near an add-button
+ * whose text matches `name`. Returns whether a button was clicked. Best-effort — used only
+ * to reveal a section whose fields are absent; never targets a submit control.
+ */
+export function clickAddForSection(name: RegExp): boolean {
+  const buttons = Array.from(
+    document.querySelectorAll<HTMLButtonElement>('button[data-automation-id="add-button"]'),
+  );
+  for (const btn of buttons) {
+    const label = (btn.getAttribute('aria-label') || btn.textContent || '').trim();
+    if (name.test(label)) {
+      btn.click();
+      return true;
+    }
+    let node: HTMLElement | null = btn.parentElement;
+    for (let depth = 0; depth < 6 && node; depth += 1, node = node.parentElement) {
+      const heading = node.querySelector<HTMLElement>(
+        'h1,h2,h3,h4,h5,[role="heading"],[data-automation-id*="itle"],[data-automation-id*="eading"],label',
+      );
+      if (heading && name.test((heading.textContent || '').trim())) {
+        btn.click();
+        return true;
+      }
+    }
+  }
+  return false;
 }
 
 interface DateParts {

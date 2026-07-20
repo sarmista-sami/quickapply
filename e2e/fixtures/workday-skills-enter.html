@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Workday skills (Enter-to-commit fixture)</title>
+  </head>
+  <body>
+    <div data-automation-id="formField-skills">
+      <label>Skills</label>
+      <ul class="chips"></ul>
+      <input type="text" name="skills" />
+    </div>
+    <button data-automation-id="pageFooterNextButton" type="button">Save and Continue</button>
+    <script>
+      // Typeahead that renders options but ONLY commits the highlighted one on Enter —
+      // a plain option click does NOT add a chip (mirrors the real Workday behavior).
+      const SKILLS = ['Algorithms', 'Calculus', 'Fortran', 'Python'];
+      const input = document.querySelector('[data-automation-id="formField-skills"] input');
+      const chips = document.querySelector('[data-automation-id="formField-skills"] .chips');
+      let highlighted = null;
+
+      function portal() {
+        let p = document.getElementById('wd-portal');
+        if (!p) {
+          p = document.createElement('div');
+          p.id = 'wd-portal';
+          document.body.appendChild(p);
+        }
+        return p;
+      }
+      function clearPortal() {
+        const p = document.getElementById('wd-portal');
+        if (p) p.innerHTML = '';
+        highlighted = null;
+      }
+      function addChip(text) {
+        const li = document.createElement('li');
+        li.setAttribute('data-automation-id', 'selectedItem');
+        li.textContent = text;
+        chips.appendChild(li);
+      }
+
+      input.addEventListener('input', () => {
+        const v = input.value.trim().toLowerCase();
+        if (!v) return clearPortal();
+        const matches = SKILLS.filter((s) => s.toLowerCase().includes(v));
+        const p = portal();
+        p.innerHTML = '';
+        for (const t of matches) {
+          const o = document.createElement('div');
+          o.setAttribute('data-automation-id', 'promptOption');
+          o.textContent = t;
+          o.addEventListener('click', () => {
+            /* intentionally does NOT commit — only Enter does */
+          });
+          p.appendChild(o);
+        }
+        highlighted = matches[0] ?? null; // first suggestion is "highlighted"
+      });
+
+      input.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' && highlighted) {
+          addChip(highlighted);
+          clearPortal();
+        }
+      });
+
+      window.__submitted = false;
+      document
+        .querySelector('[data-automation-id="pageFooterNextButton"]')
+        .addEventListener('click', () => (window.__submitted = true));
+    </script>
+  </body>
+</html>

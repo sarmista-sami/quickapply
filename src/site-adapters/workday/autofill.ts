@@ -15,6 +15,8 @@ export async function autofillEmpty(
   data: ApplicantData,
   attempted?: Set<string>,
 ): Promise<FillResult> {
+  // Reveal repeatable sections (e.g. click Education "Add") so their fields exist to fill.
+  await adapter.prepare?.(data);
   const empty = adapter.plan(data).filter((f) => {
     if (f.currentValue) return false;
     const key = `${f.selector}::${f.value}`;

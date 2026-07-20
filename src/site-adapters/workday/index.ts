@@ -1,13 +1,14 @@
 import type { SiteAdapter, FieldFill, FillResult, FillStrategy } from '@/src/core/site-adapter/types';
 import type { ApplicantData } from '@/src/types/applicant-data';
 import { resolveFields, controlSelector, type FieldKind, type ResolvedField } from '@/src/site-adapters/workday/field-map';
-import { findInput, readValue } from '@/src/site-adapters/workday/dom';
+import { findInput, readValue, waitForField } from '@/src/site-adapters/workday/dom';
 import {
   fillText,
   setCheckbox,
   selectDropdown,
   selectMultiple,
   setDate,
+  clickAddForSection,
 } from '@/src/site-adapters/workday/interactions';
 
 const WORKDAY_HOST = /(^|\.)(myworkdayjobs|myworkday)\.com$/i;
@@ -32,6 +33,26 @@ export class WorkdayAdapter implements SiteAdapter {
       return WORKDAY_HOST.test(new URL(url).hostname);
     } catch {
       return false;
+    }
+  }
+
+  /**
+   * Reveal repeatable sections whose fields are absent but for which we have data, by
+   * clicking their "Add" control so the fields render before planning. Only acts while a
+   * section's field is missing, so it self-limits to once. Never submits.
+   */
+  async prepare(data: ApplicantData): Promise<void> {
+    const EDU_MARKERS =
+      '[data-automation-id="formField-degree"], [data-automation-id="formField-firstYearAttended"], [data-automation-id="formField-schoolName"]';
+    if (data.education.length > 0 && !document.querySelector(EDU_MARKERS)) {
+      if (clickAddForSection(/education/i)) {
+        await waitForField('[data-automation-id="formField-degree"] input', 2500);
+      }
+    }
+    if (data.work.length > 0 && !document.querySelector('[data-automation-id="formField-jobTitle"]')) {
+      if (clickAddForSection(/work experience|experience|employment/i)) {
+        await waitForField('[data-automation-id="formField-jobTitle"] input', 2500);
+      }
     }
   }
 

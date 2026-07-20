@@ -30,6 +30,20 @@ export function setNativeValue(el: Fillable, value: string): void {
   el.dispatchEvent(new Event('change', { bubbles: true }));
 }
 
+/**
+ * Dispatch a real Enter keypress on an element. Workday's typeahead prompts commit the
+ * highlighted option on Enter (an option click alone does not register). `keyCode`/`which`
+ * are set for handlers that still read them.
+ */
+export function pressEnter(el: HTMLElement): void {
+  for (const type of ['keydown', 'keypress', 'keyup'] as const) {
+    const ev = new KeyboardEvent(type, { key: 'Enter', code: 'Enter', bubbles: true, cancelable: true });
+    Object.defineProperty(ev, 'keyCode', { get: () => 13 });
+    Object.defineProperty(ev, 'which', { get: () => 13 });
+    el.dispatchEvent(ev);
+  }
+}
+
 const wait = (ms: number) => new Promise<void>((r) => setTimeout(r, ms));
 
 /** Poll for a field to appear (Workday renders lazily). Resolves null on timeout. */

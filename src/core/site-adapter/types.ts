@@ -44,6 +44,12 @@ export interface FillResult {
 export interface SiteAdapter {
   /** Whether this adapter handles the given page URL. */
   matches(url: string): boolean;
+  /**
+   * Optional: reveal repeatable sections whose fields are absent but for which the
+   * applicant has data (e.g. click a section's "Add"), so `plan`/`fill` see the fields.
+   * Must not submit the form. Called before planning.
+   */
+  prepare?(data: ApplicantData): Promise<void>;
   /** Compute intended field writes without mutating the page. */
   plan(data: ApplicantData): FieldFill[];
   /** Perform the planned writes. */
