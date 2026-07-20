@@ -58,6 +58,44 @@ describe('resolveFields — structured address', () => {
   });
 });
 
+describe('resolveFields — name re-casing at fill time', () => {
+  it('corrects a stale ALL-CAPS stored name', () => {
+    const m = byLabel({ ...base, contact: { ...base.contact, firstName: 'PRIYADARSHINI', lastName: 'mcDONALD' } });
+    expect(m['First name']?.value).toBe('Priyadarshini');
+    expect(m['Last name']?.value).toBe('Mcdonald');
+  });
+
+  it('leaves already-correct casing unchanged', () => {
+    const m = byLabel(base);
+    expect(m['First name']?.value).toBe('Ada');
+    expect(m['Last name']?.value).toBe('Lovelace');
+  });
+});
+
+describe('resolveFields — national phone number', () => {
+  it('strips a known country calling code', () => {
+    const m = byLabel({
+      ...base,
+      contact: { ...base.contact, phone: '+31 6 8750 8928', address: { country: 'Netherlands' } },
+    });
+    expect(m['Phone']?.value).toBe('687508928');
+    expect(m['Phone']?.value.startsWith('31')).toBe(false);
+  });
+
+  it('leaves digits unchanged for an unknown/unmapped country', () => {
+    const m = byLabel({
+      ...base,
+      contact: { ...base.contact, phone: '+31 6 8750 8928', address: { country: 'Narnia' } },
+    });
+    expect(m['Phone']?.value).toBe('31687508928');
+  });
+
+  it('leaves digits unchanged with no country at all', () => {
+    const m = byLabel({ ...base, contact: { ...base.contact, phone: '+31 6 8750 8928' } });
+    expect(m['Phone']?.value).toBe('31687508928');
+  });
+});
+
 describe('resolveFields — rich kinds', () => {
   const rich: ApplicantData = {
     ...base,

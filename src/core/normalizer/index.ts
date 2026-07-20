@@ -36,7 +36,9 @@ function splitName(name?: string): { firstName: string; lastName: string } {
 
 // Capitalize the first letter of each name token and lowercase the rest, so names are
 // first-letter-capital only (e.g. "PRIYADARSHINI" / "mcdonald" → "Priyadarshini" / "Mcdonald").
-function normalizeNameCase(token: string): string {
+// Exported so the Workday field map can re-apply it at fill time to data that predates
+// this normalization (stale synced data, manual edits, etc.) — see AGENTS/workday-prefill.
+export function normalizeNameCase(token: string): string {
   if (!token) return token;
   return token.charAt(0).toUpperCase() + token.slice(1).toLowerCase();
 }

@@ -1,4 +1,5 @@
 import type { ApplicantData } from '@/src/types/applicant-data';
+import { normalizeNameCase } from '@/src/core/normalizer';
 
 /**
  * Declarative, typed Workday field map, keyed on tenant-agnostic `data-automation-id`s
@@ -25,17 +26,83 @@ export interface WorkdayField {
   transform?: (value: string) => string;
 }
 
-const digitsOnly = (v: string) => v.replace(/\D/g, '');
 const linkOf = (d: ApplicantData, kinds: string[]) =>
   d.links.find((l) => kinds.some((k) => new RegExp(k, 'i').test(l.url) || l.label.toLowerCase() === k))?.url;
+
+/**
+ * Re-apply first-letter-capital casing at fill time (word by word), independent of the
+ * normalizer step — corrects stale/manually-typed ALL-CAPS names so Workday's
+ * "more than 2 capital letters" validation never fires, regardless of when the data was
+ * saved.
+ */
+function properCaseName(value: string): string {
+  return value.trim().split(/\s+/).map(normalizeNameCase).join(' ');
+}
+
+// Common calling codes, keyed by lowercased country name (extend as needed). Used to
+// strip the country code from the phone digits before filling — Workday's `phoneNumber`
+// field expects the national number; the calling code has its own separate field.
+const CALLING_CODES: Record<string, string> = {
+  'netherlands': '31',
+  'united states': '1',
+  'usa': '1',
+  'united states of america': '1',
+  'canada': '1',
+  'united kingdom': '44',
+  'uk': '44',
+  'great britain': '44',
+  'ireland': '353',
+  'germany': '49',
+  'france': '33',
+  'spain': '34',
+  'italy': '39',
+  'belgium': '32',
+  'switzerland': '41',
+  'austria': '43',
+  'portugal': '351',
+  'sweden': '46',
+  'norway': '47',
+  'denmark': '45',
+  'finland': '358',
+  'poland': '48',
+  'india': '91',
+  'australia': '61',
+  'new zealand': '64',
+  'singapore': '65',
+  'japan': '81',
+  'china': '86',
+  'brazil': '55',
+  'mexico': '52',
+  'south africa': '27',
+  'united arab emirates': '971',
+};
+
+/**
+ * Strip a known country calling code from phone digits so only the national number is
+ * filled (Workday keeps the calling code in a separate dropdown). Falls back to the
+ * unstripped digits when the country is unknown, unmapped, or the remainder after
+ * stripping wouldn't look like a real national number.
+ */
+function nationalPhone(digits: string, country?: string): string {
+  if (!country) return digits;
+  const code = CALLING_CODES[country.trim().toLowerCase()];
+  if (!code || !digits.startsWith(code)) return digits;
+  const remainder = digits.slice(code.length);
+  return remainder.length >= 6 ? remainder : digits;
+}
 
 export const WORKDAY_FIELDS: WorkdayField[] = [
   // Account / sign-in page.
   { label: 'Email', wrapperId: 'formField-email', kind: 'text', get: (d) => d.contact.email },
   // My Information.
-  { label: 'First name', wrapperId: 'formField-legalName--firstName', kind: 'text', get: (d) => d.contact.firstName },
-  { label: 'Last name', wrapperId: 'formField-legalName--lastName', kind: 'text', get: (d) => d.contact.lastName },
-  { label: 'Phone', wrapperId: 'formField-phoneNumber', kind: 'text', get: (d) => d.contact.phone, transform: digitsOnly },
+  { label: 'First name', wrapperId: 'formField-legalName--firstName', kind: 'text', get: (d) => d.contact.firstName && properCaseName(d.contact.firstName) },
+  { label: 'Last name', wrapperId: 'formField-legalName--lastName', kind: 'text', get: (d) => d.contact.lastName && properCaseName(d.contact.lastName) },
+  {
+    label: 'Phone',
+    wrapperId: 'formField-phoneNumber',
+    kind: 'text',
+    get: (d) => d.contact.phone && nationalPhone(d.contact.phone.replace(/\D/g, ''), d.contact.address?.country),
+  },
   { label: 'Address line 1', wrapperId: 'formField-addressLine1', kind: 'text', get: (d) => d.contact.address?.line1 ?? d.contact.location },
   { label: 'City', wrapperId: 'formField-city', kind: 'text', get: (d) => d.contact.address?.city },
   { label: 'Postal code', wrapperId: 'formField-postalCode', kind: 'text', get: (d) => d.contact.address?.postalCode },
