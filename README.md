@@ -77,10 +77,29 @@ pnpm compile   # wxt prepare + tsc typecheck
 
 > On this machine pnpm runs via `corepack pnpm <cmd>` (a direct global install is blocked).
 
-### Load the extension
+## Install locally
 
-`pnpm build`, then in Chrome → `chrome://extensions` → enable Developer mode → **Load
-unpacked** → select `.output/chrome-mv3`. Click the toolbar icon to open the side panel.
+> ⚠️ **Under active development.** QuickApply is not on the Chrome Web Store yet and is
+> pre-1.0 — expect rough edges and breaking changes. It only acts on Workday pages, never
+> auto-submits a form, and never stores passwords or payment details. Install at your own
+> discretion.
+
+**Option A — from a release build (no toolchain needed)**
+
+1. Download `quickapply-chrome-mv3.zip` from the [Releases](../../releases) page and unzip it.
+2. Open `chrome://extensions` and enable **Developer mode** (top-right).
+3. Click **Load unpacked** and select the unzipped `chrome-mv3` folder.
+4. Click the QuickApply toolbar icon to open the side panel.
+
+**Option B — build from source**
+
+```
+corepack pnpm install
+corepack pnpm build      # → .output/chrome-mv3
+```
+
+Then load `.output/chrome-mv3` via **Load unpacked** as in steps 2–4 above. For live
+development use `corepack pnpm dev` instead (WXT dev server + HMR).
 
 ## Workday support
 
