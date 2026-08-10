@@ -1,8 +1,20 @@
-# Resume Autofill
+# QuickApply
 
 A Chrome extension (MV3) that parses your résumé, lets you review and edit the extracted
 fields in a side panel, remembers them across devices via your Google account, and
 pre-fills job-application forms — starting with **Workday**.
+
+![QuickApply flow: upload résumé → parse → auto-fill a Workday form → you click Submit](docs/quickapply-flow.png)
+
+## How it works
+
+```mermaid
+flowchart LR
+    A["📄 Upload résumé<br/>(.docx / .pdf)"] --> B["⚙️ Parse + normalize<br/>→ ApplicantData"]
+    B --> C["📝 Review & edit<br/>in side panel"]
+    C --> D["⚡ Auto-fill<br/>Workday form"]
+    D --> E["🖱️ You click Submit<br/>(never automatic)"]
+```
 
 ## What it does
 
@@ -13,7 +25,7 @@ pre-fills job-application forms — starting with **Workday**.
 5. **Auto-fill** a Workday application: as fields appear (on load and across steps), the
    extension fills empty ones — text, dropdowns, multiselect, dates, checkboxes — without
    overwriting what you typed. Review in the panel/page; "Fill now" re-applies; attach the
-   résumé file with one click. **Never submits.**
+   résumé file with one click. **You click Submit — QuickApply never does.**
 
 ## Architecture (4 layers)
 
