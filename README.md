@@ -1,4 +1,8 @@
-# QuickApply
+<p align="center">
+  <img src="docs/logo.png" alt="QuickApply logo" width="128" height="128">
+</p>
+
+<h1 align="center">QuickApply</h1>
 
 A Chrome extension (MV3) that parses your résumé, lets you review and edit the extracted
 fields in a side panel, remembers them across devices via your Google account, and
