@@ -20,6 +20,12 @@ flowchart LR
     D --> E["🖱️ You click Submit<br/>(never automatic)"]
 ```
 
+## The side panel
+
+<p align="center">
+  <img src="docs/demo.png" alt="QuickApply side panel: parsed résumé fields ready to review and edit" width="360">
+</p>
+
 ## What it does
 
 1. **Upload** a résumé (`.docx` or `.pdf`).

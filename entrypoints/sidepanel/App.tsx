@@ -64,7 +64,7 @@ export function App() {
       <header className="app-header">
         <Logo />
         <div>
-          <h1 className="app-title">Resume Autofill</h1>
+          <h1 className="app-title">QuickApply</h1>
           <p className="app-subtitle">Parse once, apply everywhere</p>
         </div>
       </header>

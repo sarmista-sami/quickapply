@@ -5,7 +5,7 @@ export default defineConfig({
   modules: ['@wxt-dev/module-react'],
   srcDir: '.',
   manifest: {
-    name: 'Resume Autofill',
+    name: 'QuickApply',
     description: 'Parse a resume and pre-fill job-application forms.',
     permissions: ['sidePanel', 'storage', 'activeTab'],
     // activeTab lets the panel message the active Workday tab (user-invoked). Still no

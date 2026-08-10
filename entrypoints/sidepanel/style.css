@@ -1,5 +1,5 @@
 /* ---------------------------------------------------------------------------
-   Resume Autofill — side panel design system.
+   QuickApply — side panel design system.
    Plain CSS + custom properties; light/dark via prefers-color-scheme.
 --------------------------------------------------------------------------- */
 
@@ -12,10 +12,10 @@
   --text: #191c22;
   --muted: #5c6472;
   --faint: #8b93a3;
-  --accent: #4f46e5;
-  --accent-hover: #4338ca;
-  --accent-soft: rgba(79, 70, 229, 0.1);
-  --accent-ring: rgba(79, 70, 229, 0.35);
+  --accent: #059669;
+  --accent-hover: #047857;
+  --accent-soft: rgba(5, 150, 105, 0.1);
+  --accent-ring: rgba(5, 150, 105, 0.35);
   --on-accent: #ffffff;
   --danger: #dc2626;
   --danger-soft: rgba(220, 38, 38, 0.08);
@@ -40,10 +40,10 @@
     --text: #e8eaee;
     --muted: #9aa2b1;
     --faint: #6d7686;
-    --accent: #818cf8;
-    --accent-hover: #a5b0fc;
-    --accent-soft: rgba(129, 140, 248, 0.14);
-    --accent-ring: rgba(129, 140, 248, 0.4);
+    --accent: #34d399;
+    --accent-hover: #6ee7b7;
+    --accent-soft: rgba(52, 211, 153, 0.14);
+    --accent-ring: rgba(52, 211, 153, 0.4);
     --on-accent: #14161b;
     --danger: #f87171;
     --danger-soft: rgba(248, 113, 113, 0.12);
