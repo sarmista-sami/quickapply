@@ -9,14 +9,7 @@ import { Preview } from './components/Preview';
 import { FillPage } from './components/FillPage';
 
 function Logo() {
-  return (
-    <div className="app-logo" aria-hidden>
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-        strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M13 2 3 14h7l-1 8 10-12h-7z" />
-      </svg>
-    </div>
-  );
+  return <img className="app-logo" src="/icon/128.png" width="30" height="30" alt="" aria-hidden />;
 }
 
 export function App() {
